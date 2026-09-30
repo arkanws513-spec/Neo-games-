@@ -24,7 +24,7 @@
 <div class="panel"><div class="profile"><div class="mini-person">🧑</div><div><div class="section-title">ملف حياتي</div><div class="muted">الشخصية في بداية الرحلة</div></div></div>
 <div class="stats"><div class="stat">💰<b id="m1">0 ج</b><span class="muted">المال</span></div><div class="stat">🏠<b id="h1">لا يوجد</b><span class="muted">السكن</span></div><div class="stat">💼<b id="j1">لا يوجد</b><span class="muted">العمل</span></div></div>
 <div class="nav"><button class="tile" onclick="show('game')"><strong>▶ اللعب</strong><small>تابع حياتك</small></button><button class="tile" onclick="show('assets')"><strong>📦 ما أملكه</strong><small>الممتلكات والمخزون</small></button></div></div>
-<button class="back" onclick="show('home')">← العودة</button>
+<button class="back" onclick="show('home')">← الرئيسية</button>
 </section>
 
 <section id="game" class="screen">
@@ -44,7 +44,7 @@
 <section id="housing" class="screen"><div class="panel"><div class="section-title">اختر سكنك</div><div class="notice">لن تستطيع الاستمرار طويلًا بلا سكن. اختر ما يناسب رأس مالك الحالي.</div>
 <div class="row"><div><b>🛏️ سكن مؤقت</b><div class="muted">ليلة واحدة</div></div><span class="price">20 ج</span><button class="btn secondary" onclick="rentNight()">استئجار</button></div>
 <div class="row"><div><b>🏢 شقة إيجار</b><div class="muted">400 ج شهريًا • مقدم شهرين</div></div><span class="price">800 ج</span><button class="btn secondary" onclick="rentMonth()">استئجار</button></div>
-<div class="row"><div><b>🏠 شقة تمليك</b><div class="muted">أصغر شقة مبدئيًا</div></div><span class="price">50,000 ج</span><button class="btn secondary" onclick="buyHome()">شراء</button></div></div><button class="back" onclick="show('game')">← العودة</button></section>
+<div class="row"><div><b>🏠 شقة تمليك</b><div class="muted">أصغر شقة مبدئيًا</div></div><span class="price">50,000 ج</span><button class="btn secondary" onclick="buyHome()">شراء</button></div></div><button class="back" onclick="show('game')">← العودة للعبة</button></section>
 
 <section id="food" class="screen"><div class="panel"><div class="section-title">الطعام</div><div class="notice">تحتاج إلى طعام حتى تستمر في العمل. الطعام البسيط هو الخيار الآمن في البداية.</div>
 <div class="row"><div><b>🥖 وجبة بسيطة</b><div class="muted">تكفي ليوم واحد</div></div><span class="price">15 ج</span><button class="btn secondary" onclick="buyFood(15,'وجبة بسيطة')">شراء</button></div>
@@ -53,7 +53,7 @@
 
 <section id="jobs" class="screen"><div class="panel"><div class="section-title">سوق العمل</div><div class="notice">كل وظيفة لها متطلبات. الوظائف المرموقة تحتاج مؤهلًا وخبرة ومستوى أعلى.</div><div id="jobsList"></div></div><button class="back" onclick="show('game')">← العودة</button></section>
 
-<section id="market" class="screen"><div class="panel"><div class="section-title">التجارة الصغيرة</div><div class="notice">ابدأ بسلعة بسيطة. لا يوجد ربح مضمون؛ الأسعار تتغير، ورأس المال معرض للخطر.</div><div id="marketList"></div></div><button class="back" onclick="show('game')">← العودة</button></section>
+<section id="market" class="screen"><div class="panel"><div class="section-title">📦 سوق الجملة</div><div class="notice">هنا تشتري البضاعة فقط لتبيعها من خلال فرشة الرصيف. لا يوجد بيع مباشر من هذه الصفحة؛ الربح يأتي عندما يشتري منك الزبائن.</div><div id="marketList"></div></div><button class="back" onclick="show('game')">← العودة</button></section>
 
 <section id="stall" class="screen"><div class="panel"><div class="section-title">🛒 فرشة الرصيف</div>
 <div class="notice">هذه أول تجارة حقيقية لك. استأجر مكانًا على الرصيف مقابل <b>50 ج يوميًا</b>، ثم اشترِ بضاعة من السوق. الزبائن لا يشترون فورًا؛ عليك انتظارهم، وعدد المشترين والأسعار يتغيران عشوائيًا كل يوم.</div>
@@ -104,9 +104,8 @@ function buyFood(p,n){if(!spend(p))return;S.food++;log('اشتريت '+n+' مق�
 function canJob(j){return S.level>=j.level&&S.skill>=j.skill&&S.exp>=j.exp}
 function applyJob(i){let j=jobs[i];if(!canJob(j)){log('لا تستوفي متطلبات '+j.name+'.');update();return}S.job=j;log('تم قبولك في وظيفة '+j.name+' براتب '+fmt(j.salary)+' شهريًا.');show('game')}
 function renderJobs(){let el=document.getElementById('jobsList');el.innerHTML=jobs.map((j,i)=>{let ok=canJob(j);return '<div class="job '+(!ok?'locked':'')+'"><div class="topline"><b>'+j.name+'</b><span class="price">'+fmt(j.salary)+'/شهر</span></div><div class="muted">'+j.type+' • المستوى '+j.level+' • الكفاءة '+j.skill+' • الخبرة '+j.exp+'</div><button class="btn secondary" style="margin-top:9px;width:100%" '+(!ok?'disabled':'')+' onclick="applyJob('+i+')">'+(ok?'التقدم للوظيفة':'🔒 غير متاحة حاليًا')+'</button></div>'}).join('')}
-function renderMarket(){let el=document.getElementById('marketList');el.innerHTML=goods.map((g,i)=>{let q=S.goods[g.name]||0;return '<div class="row"><div><b>'+g.name+'</b><div class="muted">شراء '+fmt(g.buy)+' • بيع تقريبي '+fmt(g.sell)+'</div><div class="muted">في مخزونك: '+q+'</div></div><div class="actions"><button class="btn secondary" onclick="tradeBuy('+i+')">شراء</button><button class="btn secondary" onclick="tradeSell('+i+')">بيع</button></div></div>'}).join('')}
-function tradeBuy(i){let g=goods[i];if(!spend(g.buy))return;S.goods[g.name]=(S.goods[g.name]||0)+1;log('اشتريت '+g.name+' بـ '+fmt(g.buy)+'.');update()}
-function tradeSell(i){let g=goods[i],q=S.goods[g.name]||0;if(!q){log('لا تملك '+g.name+' للبيع.');update();return}let swing=(Math.random()-.5)*.2;let p=Math.max(1,Math.round(g.sell*(1+swing)));S.goods[g.name]--;S.money+=p;gainExp(3);log('بعت '+g.name+' مقابل '+fmt(p)+' وربحت من الصفقة.');update()}
+function renderMarket(){let el=document.getElementById('marketList');el.innerHTML=goods.map((g,i)=>{let q=S.goods[g.name]||0;return '<div class="row"><div><b>'+g.name+'</b><div class="muted">سعر الشراء: '+fmt(g.buy)+' • في المخزون: '+q+'</div></div><button class="btn secondary" onclick="tradeBuy('+i+')">شراء</button></div>'}).join('')}
+function tradeBuy(i){if(!S.stall){log('استأجر فرشة الرصيف أولًا قبل شراء البضاعة.');show('stall');return}let g=goods[i];if(!spend(g.buy))return;S.goods[g.name]=(S.goods[g.name]||0)+1;log('اشتريت '+g.name+' بـ '+fmt(g.buy)+' لتبيعها للزبائن.');update()}
 function rentStall(){
  if(S.stall){log('لديك فرشة مستأجرة بالفعل.');update();return}
  if(!spend(50)){log('لا تملك 50 ج لاستئجار الفرشة.');update();return}
@@ -161,6 +160,6 @@ function workDay(){if(!S.started)return;if(!S.housing){log('لا يمكنك قض
 if(S.housing.days){S.housing.days--;if(S.housing.days<=0){if(S.housing.name==='سكن مؤقت'){S.housing=null;log('انتهت ليلة السكن المؤقت.')}else if(S.housing.name==='شقة إيجار'){S.housing.days=30;if(!spend(400)){S.housing=null;log('لم تستطع دفع الإيجار الشهري وفقدت السكن.')}else log('دُفع الإيجار الشهري 400 ج.')}}}S.day++;if(S.money<=0&&!S.housing&&!S.food)endGame();update()}
 function endGame(){S.started=false;show('over')}
 function renderAssets(){let inv=Object.entries(S.goods).filter(x=>x[1]>0).map(x=>x[0]+': '+x[1]).join(' • ')||'لا توجد سلع';document.getElementById('assetsList').innerHTML='<div class="row"><b>💰 المال</b><span class="price">'+fmt(S.money)+'</span></div><div class="row"><b>🏠 السكن</b><span>'+ (S.housing?S.housing.name:'لا يوجد')+'</span></div><div class="row"><b>🍞 الطعام</b><span>'+S.food+' وجبة</span></div><div class="row"><b>📦 المخزون</b><span>'+inv+'</span></div><div class="row"><b>🛒 التجارة</b><span>'+(S.stall?'فرشة رصيف مستأجرة اليوم':'لا توجد فرشة')+'</span></div><div class="row"><b>💼 العمل</b><span>'+(S.job?S.job.name:'لا يوجد')+'</span></div>'}
-load();if(S.started)show('game');else update();
+load();show('home');
 </script>
 </body></html>

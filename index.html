@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>الحياة الافتراضية</title>
+<style>
+:root{--bg:#090b10;--panel:#121722;--panel2:#181f2d;--line:#2a3446;--text:#f4f6fa;--muted:#9aa6b8;--gold:#e7b94f;--green:#54d49b;--red:#e86a73;--blue:#6da9ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -20%,#29344a 0,#111722 34%,#090b10 72%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh;padding:14px}.app{max-width:760px;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.brand{font-weight:950;font-size:22px}.muted{color:var(--muted);font-size:12px}.money{border:1px solid #4a4129;background:#17150e;color:var(--gold);padding:9px 12px;border-radius:13px;font-weight:900}.screen{display:none}.screen.active{display:block}.hero{min-height:calc(100vh - 40px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}.person{width:170px;height:220px;position:relative;margin-bottom:22px}.head{position:absolute;width:66px;height:66px;border-radius:50%;background:#b9784f;left:52px;top:7px;box-shadow:inset -7px -4px 0 #9d603f}.hair{position:absolute;width:69px;height:28px;border-radius:38px 38px 15px 15px;background:#24201e;left:50px;top:2px}.body{position:absolute;width:108px;height:112px;background:#62646a;left:31px;top:69px;border-radius:28px 28px 14px 14px;box-shadow:inset -9px 0 #4f5157}.shirt{position:absolute;width:42px;height:100px;background:#777a80;left:64px;top:82px;border-radius:12px}.arm{position:absolute;width:27px;height:98px;background:#b9784f;border-radius:18px;top:78px}.arm.a{left:19px;transform:rotate(9deg)}.arm.b{right:18px;transform:rotate(-9deg)}.leg{position:absolute;width:35px;height:85px;background:#35383f;top:175px;border-radius:10px}.leg.a{left:49px}.leg.b{right:49px}.hero h1{font-size:34px;margin:0 0 6px}.hero p{color:var(--muted);max-width:420px;line-height:1.7;margin:0 0 22px}.btn{border:0;border-radius:15px;padding:14px 22px;font-size:16px;font-weight:900;cursor:pointer;background:linear-gradient(135deg,#e7b94f,#b88728);color:#17120a;box-shadow:0 10px 28px #0005}.btn.secondary{background:#171e2b;color:var(--text);border:1px solid var(--line);box-shadow:none}.btn:disabled{opacity:.4;cursor:not-allowed}.stack{display:grid;gap:10px;width:min(420px,100%)}.panel{background:linear-gradient(180deg,#151c28,#10151e);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:0 15px 45px #0005}.profile{display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:center}.mini-person{width:82px;height:100px;border-radius:20px;background:linear-gradient(145deg,#303744,#171b23);display:grid;place-items:center;font-size:46px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.stat{background:#0d121b;border:1px solid var(--line);padding:10px;border-radius:12px;text-align:center}.stat b{display:block;font-size:17px}.nav{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:12px}.tile{text-align:right;border:1px solid var(--line);background:#151c28;border-radius:16px;padding:14px;cursor:pointer;color:var(--text)}.tile strong{display:block;margin-bottom:4px}.tile small{color:var(--muted)}.section-title{font-size:18px;font-weight:950;margin:4px 0 10px}.row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid #202838}.row:last-child{border-bottom:0}.tag{padding:5px 8px;border-radius:8px;background:#202939;color:var(--muted);font-size:11px}.price{color:var(--gold);font-weight:900}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions .btn{flex:1;min-width:120px}.notice{padding:11px;border-radius:13px;background:#0d141f;border:1px solid var(--line);margin:10px 0;color:#dfe6f1;line-height:1.6}.danger{color:var(--red)}.good{color:var(--green)}.locked{opacity:.55}.job{padding:13px;border:1px solid var(--line);border-radius:14px;margin-bottom:9px;background:#121925}.job .topline{display:flex;justify-content:space-between;gap:8px}.back{background:none;border:0;color:var(--muted);font-weight:800;padding:8px 0;cursor:pointer}.log{font-size:12px;color:var(--muted);line-height:1.7;max-height:130px;overflow:auto}.hidden{display:none!important}@media(max-width:520px){body{padding:10px}.hero h1{font-size:29px}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.profile{grid-template-columns:70px 1fr}.mini-person{width:68px;height:86px;font-size:37px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div><div class="brand">الحياة الافتراضية</div><div class="muted" id="subtitle">ابدأ من الصفر وابنِ حياتك</div></div><div class="money" id="topMoney">100 ج</div></header>
+
+<section id="home" class="screen active">
+<div class="hero">
+<div class="person"><div class="hair"></div><div class="head"></div><div class="body"></div><div class="shirt"></div><div class="arm a"></div><div class="arm b"></div><div class="leg a"></div><div class="leg b"></div></div>
+<h1>حياة من الصفر</h1><p>أمامك 100 جنيه فقط. لا سكن، لا وظيفة، ولا ممتلكات. قراراتك اليومية هي التي ستحدد إلى أين ستصل.</p>
+<div class="stack"><button class="btn secondary" onclick="show('life')">الحياة الافتراضية</button><button class="btn" onclick="startGame()">ابدأ اللعبة</button></div>
+</div>
+</section>
+
+<section id="life" class="screen">
+<div class="panel"><div class="profile"><div class="mini-person">🧑</div><div><div class="section-title">ملف حياتي</div><div class="muted">الشخصية في بداية الرحلة</div></div></div>
+<div class="stats"><div class="stat">💰<b id="m1">0 ج</b><span class="muted">المال</span></div><div class="stat">🏠<b id="h1">لا يوجد</b><span class="muted">السكن</span></div><div class="stat">💼<b id="j1">لا يوجد</b><span class="muted">العمل</span></div></div>
+<div class="nav"><button class="tile" onclick="show('game')"><strong>▶ اللعب</strong><small>تابع حياتك</small></button><button class="tile" onclick="show('assets')"><strong>📦 ما أملكه</strong><small>الممتلكات والمخزون</small></button></div></div>
+<button class="back" onclick="show('home')">← العودة</button>
+</section>
+
+<section id="game" class="screen">
+<div class="panel"><div class="section-title">يوم جديد</div><div class="notice" id="dayInfo"></div><div class="stats"><div class="stat">💰<b id="gm">100 ج</b><span class="muted">الرصيد</span></div><div class="stat">⭐<b id="level">1</b><span class="muted">المستوى</span></div><div class="stat">📅<b id="day">1</b><span class="muted">اليوم</span></div></div>
+<div class="nav">
+<button class="tile" onclick="show('housing')"><strong>🏠 السكن</strong><small id="housingSmall">لا يوجد سكن</small></button>
+<button class="tile" onclick="show('food')"><strong>🍞 الطعام</strong><small id="foodSmall">لا يوجد طعام</small></button>
+<button class="tile" onclick="show('jobs')"><strong>💼 الوظائف</strong><small id="jobSmall">ابحث عن عمل</small></button>
+<button class="tile" onclick="show('market')"><strong>📦 التجارة</strong><small>اشترِ وبِع</small></button>
+<button class="tile" onclick="workDay()"><strong>⏱️ قضاء اليوم</strong><small>عمل / تجارة / بحث</small></button>
+<button class="tile" onclick="show('life')"><strong>👤 حياتي</strong><small>الملف الشخصي</small></button>
+</div></div>
+<div class="panel" style="margin-top:10px"><div class="section-title">سجل الأحداث</div><div id="log" class="log"></div></div>
+</section>
+
+<section id="housing" class="screen"><div class="panel"><div class="section-title">اختر سكنك</div><div class="notice">لن تستطيع الاستمرار طويلًا بلا سكن. اختر ما يناسب رأس مالك الحالي.</div>
+<div class="row"><div><b>🛏️ سكن مؤقت</b><div class="muted">ليلة واحدة</div></div><span class="price">20 ج</span><button class="btn secondary" onclick="rentNight()">استئجار</button></div>
+<div class="row"><div><b>🏢 شقة إيجار</b><div class="muted">400 ج شهريًا • مقدم شهرين</div></div><span class="price">800 ج</span><button class="btn secondary" onclick="rentMonth()">استئجار</button></div>
+<div class="row"><div><b>🏠 شقة تمليك</b><div class="muted">أصغر شقة مبدئيًا</div></div><span class="price">50,000 ج</span><button class="btn secondary" onclick="buyHome()">شراء</button></div></div><button class="back" onclick="show('game')">← العودة</button></section>
+
+<section id="food" class="screen"><div class="panel"><div class="section-title">الطعام</div><div class="notice">تحتاج إلى طعام حتى تستمر في العمل. الطعام البسيط هو الخيار الآمن في البداية.</div>
+<div class="row"><div><b>🥖 وجبة بسيطة</b><div class="muted">تكفي ليوم واحد</div></div><span class="price">15 ج</span><button class="btn secondary" onclick="buyFood(15,'وجبة بسيطة')">شراء</button></div>
+<div class="row"><div><b>🍲 وجبة جيدة</b><div class="muted">تكفي ليوم واحد وتمنحك راحة</div></div><span class="price">30 ج</span><button class="btn secondary" onclick="buyFood(30,'وجبة جيدة')">شراء</button></div>
+<div class="notice">الوجبات الموجودة: <b id="foodCount">0</b></div></div><button class="back" onclick="show('game')">← العودة</button></section>
+
+<section id="jobs" class="screen"><div class="panel"><div class="section-title">سوق العمل</div><div class="notice">كل وظيفة لها متطلبات. الوظائف المرموقة تحتاج مؤهلًا وخبرة ومستوى أعلى.</div><div id="jobsList"></div></div><button class="back" onclick="show('game')">← العودة</button></section>
+
+<section id="market" class="screen"><div class="panel"><div class="section-title">التجارة الصغيرة</div><div class="notice">ابدأ بسلعة بسيطة. لا يوجد ربح مضمون؛ الأسعار تتغير، ورأس المال معرض للخطر.</div><div id="marketList"></div></div><button class="back" onclick="show('game')">← العودة</button></section>
+
+<section id="assets" class="screen"><div class="panel"><div class="section-title">ما أملكه الآن</div><div id="assetsList"></div></div><button class="back" onclick="show('life')">← العودة</button></section>
+
+<section id="over" class="screen"><div class="hero" style="min-height:70vh"><div style="font-size:70px">💸</div><h1>انتهت الحياة</h1><p>لم يعد لديك المال أو الموارد اللازمة للاستمرار. يمكنك بدء حياة جديدة ومحاولة اتخاذ قرارات مختلفة.</p><button class="btn" onclick="newGame()">حياة جديدة</button></div></section>
+</div>
+<script>
+const jobs=[
+{name:'عامل مخزن',salary:2700,level:1,skill:0,exp:0,type:'عامل'},
+{name:'عامل مصنع',salary:3000,level:1,skill:1,exp:0,type:'عامل'},
+{name:'مساعد مبيعات',salary:3400,level:2,skill:2,exp:5,type:'موظف'},
+{name:'فني صيانة',salary:4800,level:3,skill:4,exp:15,type:'فني'},
+{name:'محاسب',salary:6500,level:4,skill:6,exp:25,type:'مهني'},
+{name:'مشرف قسم',salary:8500,level:5,skill:8,exp:45,type:'إشراف'},
+{name:'مدير فرع',salary:11000,level:7,skill:11,exp:70,type:'إدارة'},
+{name:'مدير شركة',salary:14000,level:9,skill:14,exp:100,type:'إدارة'},
+{name:'منصب مرموق',salary:18000,level:12,skill:18,exp:150,type:'مرموق'}
+];
+const goods=[
+{name:'مياه معدنية',buy:8,sell:11,qty:0},
+{name:'معلبات',buy:20,sell:28,qty:0},
+{name:'ملابس مستعملة',buy:45,sell:62,qty:0},
+{name:'أدوات منزلية',buy:80,sell:108,qty:0}
+];
+let S={started:false,money:100,day:1,level:1,exp:0,skill:0,housing:null,food:0,job:null,goods:{},log:[]};
+function save(){localStorage.setItem('virtual-life-v1',JSON.stringify(S))}
+function load(){try{let x=JSON.parse(localStorage.getItem('virtual-life-v1'));if(x)S=x}catch(e){};goods.forEach(g=>S.goods[g.name]??=0)}
+function fmt(n){return Math.round(n).toLocaleString('ar-EG')+' ج'}
+function log(x){S.log.unshift('اليوم '+S.day+' — '+x);S.log=S.log.slice(0,18)}
+function update(){document.getElementById('topMoney').textContent=fmt(S.money);document.getElementById('gm').textContent=fmt(S.money);document.getElementById('m1').textContent=fmt(S.money);document.getElementById('h1').textContent=S.housing?S.housing.name:'لا يوجد';document.getElementById('j1').textContent=S.job?S.job.name:'لا يوجد';document.getElementById('level').textContent=S.level;document.getElementById('day').textContent=S.day;document.getElementById('foodCount').textContent=S.food;document.getElementById('housingSmall').textContent=S.housing?S.housing.name:'لا يوجد سكن';document.getElementById('foodSmall').textContent=S.food+' وجبة';document.getElementById('jobSmall').textContent=S.job?S.job.name:'ابحث عن عمل';document.getElementById('log').innerHTML=S.log.map(x=>'<div>'+x+'</div>').join('')||'لا توجد أحداث بعد.';document.getElementById('dayInfo').innerHTML=S.housing?'السكن: <b>'+S.housing.name+'</b> • الطعام: <b>'+S.food+'</b> • الوظيفة: <b>'+(S.job?S.job.name:'لا يوجد')+'</b>':'أنت بلا سكن حاليًا. أولويتك هي البقاء ثم بناء رأس المال.';renderJobs();renderMarket();renderAssets();save()}
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');update()}
+function startGame(){S.started=true;S.money=100;S.day=1;S.level=1;S.exp=0;S.skill=0;S.housing=null;S.food=0;S.job=null;S.goods={};S.log=[];log('بدأت حياتك ومعك 100 جنيه فقط.');show('game')}
+function newGame(){startGame()}
+function gainExp(n){S.exp+=n;let need=S.level*25;if(S.exp>=need){S.exp-=need;S.level++;S.skill+=2;log('ارتفع مستواك إلى '+S.level+' وحصلت على +2 كفاءة.')}} 
+function spend(n){if(S.money<n){log('لا تملك ما يكفي من المال.');return false}S.money-=n;return true}
+function rentNight(){if(!spend(20))return;S.housing={name:'سكن مؤقت',days:1};log('استأجرت سكنًا مؤقتًا لليلة واحدة مقابل 20 ج.');show('game')}
+function rentMonth(){if(!spend(800))return;S.housing={name:'شقة إيجار',days:30,rent:400};log('استأجرت شقة لمدة شهر بعد دفع مقدم شهرين.');show('game')}
+function buyHome(){if(!spend(50000))return;S.housing={name:'شقة تمليك',owned:true};log('أصبحت مالكًا لأول شقة.');show('game')}
+function buyFood(p,n){if(!spend(p))return;S.food++;log('اشتريت '+n+' مقابل '+p+' ج.');update()}
+function canJob(j){return S.level>=j.level&&S.skill>=j.skill&&S.exp>=j.exp}
+function applyJob(i){let j=jobs[i];if(!canJob(j)){log('لا تستوفي متطلبات '+j.name+'.');update();return}S.job=j;log('تم قبولك في وظيفة '+j.name+' براتب '+fmt(j.salary)+' شهريًا.');show('game')}
+function renderJobs(){let el=document.getElementById('jobsList');el.innerHTML=jobs.map((j,i)=>{let ok=canJob(j);return '<div class="job '+(!ok?'locked':'')+'"><div class="topline"><b>'+j.name+'</b><span class="price">'+fmt(j.salary)+'/شهر</span></div><div class="muted">'+j.type+' • المستوى '+j.level+' • الكفاءة '+j.skill+' • الخبرة '+j.exp+'</div><button class="btn secondary" style="margin-top:9px;width:100%" '+(!ok?'disabled':'')+' onclick="applyJob('+i+')">'+(ok?'التقدم للوظيفة':'🔒 غير متاحة حاليًا')+'</button></div>'}).join('')}
+function renderMarket(){let el=document.getElementById('marketList');el.innerHTML=goods.map((g,i)=>{let q=S.goods[g.name]||0;return '<div class="row"><div><b>'+g.name+'</b><div class="muted">شراء '+fmt(g.buy)+' • بيع تقريبي '+fmt(g.sell)+'</div><div class="muted">في مخزونك: '+q+'</div></div><div class="actions"><button class="btn secondary" onclick="tradeBuy('+i+')">شراء</button><button class="btn secondary" onclick="tradeSell('+i+')">بيع</button></div></div>'}).join('')}
+function tradeBuy(i){let g=goods[i];if(!spend(g.buy))return;S.goods[g.name]=(S.goods[g.name]||0)+1;log('اشتريت '+g.name+' بـ '+fmt(g.buy)+'.');update()}
+function tradeSell(i){let g=goods[i],q=S.goods[g.name]||0;if(!q){log('لا تملك '+g.name+' للبيع.');update();return}let swing=(Math.random()-.5)*.2;let p=Math.max(1,Math.round(g.sell*(1+swing)));S.goods[g.name]--;S.money+=p;gainExp(3);log('بعت '+g.name+' مقابل '+fmt(p)+' وربحت من الصفقة.');update()}
+function workDay(){if(!S.started)return;if(!S.housing){log('لا يمكنك قضاء يوم كامل بلا سكن.');update();return}if(S.food<=0){log('ليس لديك طعام لهذا اليوم.');update();return}S.food--;if(S.job){let daily=Math.round(S.job.salary/30);S.money+=daily;gainExp(5);log('عملت اليوم وحصلت على '+fmt(daily)+'.')}else{gainExp(2);log('بحثت عن عمل وطورت خبرتك قليلًا، لكن بلا دخل.')}if(S.housing.days){S.housing.days--;if(S.housing.days<=0){if(S.housing.name==='سكن مؤقت'){S.housing=null;log('انتهت ليلة السكن المؤقت.')}else if(S.housing.name==='شقة إيجار'){S.housing.days=30;if(!spend(400)){S.housing=null;log('لم تستطع دفع الإيجار الشهري وفقدت السكن.')}else log('دُفع الإيجار الشهري 400 ج.')}}}S.day++;if(S.money<=0&&!S.housing&&!S.food)endGame();update()}
+function endGame(){S.started=false;show('over')}
+function renderAssets(){let inv=Object.entries(S.goods).filter(x=>x[1]>0).map(x=>x[0]+': '+x[1]).join(' • ')||'لا توجد سلع';document.getElementById('assetsList').innerHTML='<div class="row"><b>💰 المال</b><span class="price">'+fmt(S.money)+'</span></div><div class="row"><b>🏠 السكن</b><span>'+ (S.housing?S.housing.name:'لا يوجد')+'</span></div><div class="row"><b>🍞 الطعام</b><span>'+S.food+' وجبة</span></div><div class="row"><b>📦 المخزون</b><span>'+inv+'</span></div><div class="row"><b>💼 العمل</b><span>'+(S.job?S.job.name:'لا يوجد')+'</span></div>'}
+load();if(S.started)show('game');else update();
+</script>
+</body></html>

@@ -33,7 +33,6 @@
 <button class="tile" onclick="show('housing')"><strong>🏠 السكن</strong><small id="housingSmall">لا يوجد سكن</small></button>
 <button class="tile" onclick="show('food')"><strong>🍞 الطعام</strong><small id="foodSmall">لا يوجد طعام</small></button>
 <button class="tile" onclick="show('jobs')"><strong>💼 الوظائف</strong><small id="jobSmall">ابحث عن عمل</small></button>
-<button class="tile" onclick="show('market')"><strong>📦 التجارة</strong><small>السوق العام</small></button>
 <button class="tile" onclick="show('stall')"><strong>🛒 فرشة الرصيف</strong><small id="stallSmall">استأجر وابدأ البيع</small></button>
 <button class="tile" onclick="workDay()"><strong>⏱️ قضاء اليوم</strong><small>عمل / تجارة / بحث</small></button>
 <button class="tile" onclick="show('life')"><strong>👤 حياتي</strong><small>الملف الشخصي</small></button>
@@ -53,15 +52,12 @@
 
 <section id="jobs" class="screen"><div class="panel"><div class="section-title">سوق العمل</div><div class="notice">كل وظيفة لها متطلبات. الوظائف المرموقة تحتاج مؤهلًا وخبرة ومستوى أعلى.</div><div id="jobsList"></div></div><button class="back" onclick="show('game')">← العودة</button></section>
 
-<section id="market" class="screen"><div class="panel"><div class="section-title">📦 سوق الجملة</div><div class="notice">هنا تشتري البضاعة فقط لتبيعها من خلال فرشة الرصيف. لا يوجد بيع مباشر من هذه الصفحة؛ الربح يأتي عندما يشتري منك الزبائن.</div><div id="marketList"></div></div><button class="back" onclick="show('game')">← العودة</button></section>
-
 <section id="stall" class="screen"><div class="panel"><div class="section-title">🛒 فرشة الرصيف</div>
 <div class="notice">هذه أول تجارة حقيقية لك. استأجر مكانًا على الرصيف مقابل <b>50 ج لمدة 24 ساعة</b>. مدة الإيجار مرتبطة بساعة اللعبة: إذا استأجرتها الساعة 05:20 فتنتهي الساعة 05:20 من اليوم التالي. الوقت يستمر حتى لو لم تضغط على أي شيء.</div>
 <div class="row"><div><b>📍 حالة الفرشة</b><div class="muted" id="stallStatus">غير مستأجرة</div></div><span class="price" id="stallRentText">50 ج/يوم</span><button class="btn secondary" id="stallRentBtn" onclick="rentStall()">استئجار</button></div>
 <div class="notice"><b>رأس المال المتاح للبضاعة:</b> <span id="stallCapital">50 ج</span><br><span class="muted">بعد استئجار الفرشة من الـ100 ج الأولى، يبقى معك 50 ج فقط لشراء البضاعة.</span></div>
 <div id="stallGoods"></div>
-<div class="actions" style="margin-top:10px"><button class="btn secondary" onclick="show('market')">📦 شراء بضاعة</button></div>
-<div class="notice" id="customerResult">الزبائن يأتون تلقائيًا حسب وقت اليوم.</div>
+<div class="section-title" style="margin-top:14px">📦 شراء البضاعة</div><div class="notice">اطلب البضاعة من هنا. الطلب لا يصل فورًا؛ لكل نوع مدة توصيل مختلفة، والكمية الأكبر تحتاج وقتًا أطول. عند وصولها لن تُعرض للبيع تلقائيًا، بل أنت من يقرر: يعرضها على الفرشة أو يخزنها بجانبها.</div><div id="stallOrderList"></div><div class="section-title" style="margin-top:14px">🚚 الطلبات والتسليم</div><div id="deliveryList"></div><div class="notice" id="customerResult">الزبائن يأتون تلقائيًا ويشترون فقط من البضاعة التي عرضتها بنفسك على الفرشة.</div>
 </div><button class="back" onclick="show('game')">← العودة</button></section>
 
 <section id="assets" class="screen"><div class="panel"><div class="section-title">ما أملكه الآن</div><div id="assetsList"></div></div><button class="back" onclick="show('life')">← العودة</button></section>
@@ -86,14 +82,14 @@ const goods=[
 {name:'ملابس مستعملة',buy:45,sell:62,qty:0},
 {name:'أدوات منزلية',buy:80,sell:108,qty:0}
 ];
-let S={started:false,money:100,day:1,level:1,exp:0,skill:0,housing:null,food:0,job:null,goods:{},stall:null,log:[],gameMinute:480,lastRealMs:Date.now(),lastProcessedDay:1};
+let S={started:false,money:100,day:1,level:1,exp:0,skill:0,housing:null,food:0,job:null,goods:{},displayed:{},orders:[],stall:null,log:[],gameMinute:480,lastRealMs:Date.now(),lastProcessedDay:1};
 function save(){localStorage.setItem('virtual-life-v1',JSON.stringify(S))}
-function load(){try{let x=JSON.parse(localStorage.getItem('virtual-life-v1'));if(x)S=x}catch(e){};goods.forEach(g=>{if(typeof S.goods[g.name]!== 'number')S.goods[g.name]=0;});if(S.stall===undefined)S.stall=null;if(!Number.isFinite(S.gameMinute))S.gameMinute=480;if(!Number.isFinite(S.lastRealMs))S.lastRealMs=Date.now();if(!Number.isFinite(S.lastProcessedDay))S.lastProcessedDay=S.day||1;advanceClock(true)}
+function load(){try{let x=JSON.parse(localStorage.getItem('virtual-life-v1'));if(x)S=x}catch(e){};if(!S.goods)S.goods={};if(!S.displayed)S.displayed={};if(!Array.isArray(S.orders))S.orders=[];goods.forEach(g=>{if(typeof S.goods[g.name]!=='number')S.goods[g.name]=0;if(typeof S.displayed[g.name]!=='number')S.displayed[g.name]=0;});if(S.stall===undefined)S.stall=null;if(!Number.isFinite(S.gameMinute))S.gameMinute=480;if(!Number.isFinite(S.lastRealMs))S.lastRealMs=Date.now();if(!Number.isFinite(S.lastProcessedDay))S.lastProcessedDay=S.day||1;advanceClock(true)}
 function fmt(n){return Math.round(n).toLocaleString('ar-EG')+' ج'}
 function log(x){S.log.unshift('اليوم '+S.day+' — '+x);S.log=S.log.slice(0,18)}
-function update(){document.getElementById('topMoney').textContent=fmt(S.money);document.getElementById('gm').textContent=fmt(S.money);document.getElementById('m1').textContent=fmt(S.money);document.getElementById('h1').textContent=S.housing?S.housing.name:'لا يوجد';document.getElementById('j1').textContent=S.job?S.job.name:'لا يوجد';document.getElementById('level').textContent=S.level;document.getElementById('day').textContent=S.day;document.getElementById('dayStat').textContent=S.day;document.getElementById('gameClock').textContent=clockText();document.getElementById('foodCount').textContent=S.food;document.getElementById('housingSmall').textContent=S.housing?S.housing.name:'لا يوجد سكن';document.getElementById('foodSmall').textContent=S.food+' وجبة';document.getElementById('jobSmall').textContent=S.job?S.job.name:'ابحث عن عمل';document.getElementById('log').innerHTML=S.log.map(x=>'<div>'+x+'</div>').join('')||'لا توجد أحداث بعد.';document.getElementById('dayInfo').innerHTML=S.housing?'السكن: <b>'+S.housing.name+'</b> • الطعام: <b>'+S.food+'</b> • الوظيفة: <b>'+(S.job?S.job.name:'لا يوجد')+'</b>':'أنت بلا سكن حاليًا. أولويتك هي البقاء ثم بناء رأس المال.';renderJobs();renderMarket();renderAssets();renderStall();save()}
+function update(){document.getElementById('topMoney').textContent=fmt(S.money);document.getElementById('gm').textContent=fmt(S.money);document.getElementById('m1').textContent=fmt(S.money);document.getElementById('h1').textContent=S.housing?S.housing.name:'لا يوجد';document.getElementById('j1').textContent=S.job?S.job.name:'لا يوجد';document.getElementById('level').textContent=S.level;document.getElementById('day').textContent=S.day;document.getElementById('dayStat').textContent=S.day;document.getElementById('gameClock').textContent=clockText();document.getElementById('foodCount').textContent=S.food;document.getElementById('housingSmall').textContent=S.housing?S.housing.name:'لا يوجد سكن';document.getElementById('foodSmall').textContent=S.food+' وجبة';document.getElementById('jobSmall').textContent=S.job?S.job.name:'ابحث عن عمل';document.getElementById('log').innerHTML=S.log.map(x=>'<div>'+x+'</div>').join('')||'لا توجد أحداث بعد.';document.getElementById('dayInfo').innerHTML=S.housing?'السكن: <b>'+S.housing.name+'</b> • الطعام: <b>'+S.food+'</b> • الوظيفة: <b>'+(S.job?S.job.name:'لا يوجد')+'</b>':'أنت بلا سكن حاليًا. أولويتك هي البقاء ثم بناء رأس المال.';renderJobs();renderAssets();renderStall();renderOrderList();renderDeliveries();save()}
 function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');update()}
-function startGame(){if(S.started){log('تم تحميل تقدمك المحفوظ.');show('game');return}S.started=true;S.money=100;S.day=1;S.level=1;S.exp=0;S.skill=0;S.housing=null;S.food=0;S.job=null;S.goods={};S.stall=null;S.log=[];S.gameMinute=480;S.lastProcessedDay=1;S.lastRealMs=Date.now();log('بدأت حياتك الساعة 08:00 ومعك 100 جنيه فقط.');show('game')}
+function startGame(){if(S.started){log('تم تحميل تقدمك المحفوظ.');show('game');return}S.started=true;S.money=100;S.day=1;S.level=1;S.exp=0;S.skill=0;S.housing=null;S.food=0;S.job=null;S.goods={};S.displayed={};S.orders=[];S.stall=null;S.log=[];S.gameMinute=480;S.lastProcessedDay=1;S.lastRealMs=Date.now();log('بدأت حياتك الساعة 08:00 ومعك 100 جنيه فقط.');show('game')}
 function newGame(){startGame()}
 function gainExp(n){S.exp+=n;let need=S.level*25;if(S.exp>=need){S.exp-=need;S.level++;S.skill+=2;log('ارتفع مستواك إلى '+S.level+' وحصلت على +2 كفاءة.')}} 
 function spend(n){if(S.money<n){log('لا تملك ما يكفي من المال.');return false}S.money-=n;return true}
@@ -104,8 +100,12 @@ function buyFood(p,n){if(!spend(p))return;S.food++;log('اشتريت '+n+' مق�
 function canJob(j){return S.level>=j.level&&S.skill>=j.skill&&S.exp>=j.exp}
 function applyJob(i){let j=jobs[i];if(!canJob(j)){log('لا تستوفي متطلبات '+j.name+'.');update();return}S.job=j;log('تم قبولك في وظيفة '+j.name+' براتب '+fmt(j.salary)+' شهريًا.');show('game')}
 function renderJobs(){let el=document.getElementById('jobsList');el.innerHTML=jobs.map((j,i)=>{let ok=canJob(j);return '<div class="job '+(!ok?'locked':'')+'"><div class="topline"><b>'+j.name+'</b><span class="price">'+fmt(j.salary)+'/شهر</span></div><div class="muted">'+j.type+' • المستوى '+j.level+' • الكفاءة '+j.skill+' • الخبرة '+j.exp+'</div><button class="btn secondary" style="margin-top:9px;width:100%" '+(!ok?'disabled':'')+' onclick="applyJob('+i+')">'+(ok?'التقدم للوظيفة':'🔒 غير متاحة حاليًا')+'</button></div>'}).join('')}
-function renderMarket(){let el=document.getElementById('marketList');el.innerHTML=goods.map((g,i)=>{let q=S.goods[g.name]||0;return '<div class="row"><div><b>'+g.name+'</b><div class="muted">سعر الشراء: '+fmt(g.buy)+' • في المخزون: '+q+'</div></div><button class="btn secondary" onclick="tradeBuy('+i+')">شراء</button></div>'}).join('')}
-function tradeBuy(i){if(!S.stall){log('استأجر فرشة الرصيف أولًا قبل شراء البضاعة.');show('stall');return}let g=goods[i];if(!spend(g.buy))return;S.goods[g.name]=(S.goods[g.name]||0)+1;log('اشتريت '+g.name+' بـ '+fmt(g.buy)+' لتبيعها للزبائن.');update()}
+function storageCount(){return Object.values(S.goods).reduce((a,b)=>a+(Number(b)||0),0)}
+function deliveryMinutes(g,qty){const base={'مياه معدنية':30,'معلبات':60,'ملابس مستعملة':120,'أدوات منزلية':180}[g.name]||60;return Math.round(base+Math.max(0,qty-1)*base*0.5)}
+function orderGoods(i,qty){if(!S.stall){log('استأجر فرشة الرصيف أولًا قبل طلب البضاعة.');return}qty=Math.max(1,Math.floor(Number(qty)||0));const g=goods[i];if(!g)return;if(!spend(g.buy*qty))return;const mins=deliveryMinutes(g,qty);S.orders.push({id:Date.now()+Math.random(),name:g.name,qty,total:g.buy*qty,arrivesAt:worldMinute()+mins,status:'في الطريق'});log('طلبت '+qty+' من '+g.name+' بقيمة '+fmt(g.buy*qty)+'، وسيصل بعد نحو '+mins+' دقيقة داخل اللعبة.');update()}
+function acceptDelivery(id,mode){const o=S.orders.find(x=>x.id===id);if(!o||o.status!=='وصلت')return;if(mode==='store'){if(storageCount()+o.qty>10){log('لا يمكن تخزين الطلب: المخزن بجانب الفرشة لا يتحمل أكثر من 10 قطع.');update();return}S.goods[o.name]=(S.goods[o.name]||0)+o.qty;o.status='تم التخزين';log('خزنت '+o.qty+' من '+o.name+' بجانب الفرشة.')}else{S.displayed[o.name]=(S.displayed[o.name]||0)+o.qty;o.status='عُرض للبيع';log('عرضت '+o.qty+' من '+o.name+' للبيع على الفرشة.')}update()}
+function renderOrderList(){const el=document.getElementById('stallOrderList');if(!el)return;el.innerHTML=goods.map((g,i)=>'<div class="row"><div><b>'+g.name+'</b><div class="muted">سعر الشراء: '+fmt(g.buy)+' • توصيل يبدأ من 30 دقيقة حسب النوع والكمية</div></div><div class="actions"><button class="btn secondary" onclick="orderGoods('+i+',1)">قطعة</button><button class="btn secondary" onclick="orderGoods('+i+',5)">5 قطع</button></div></div>').join('')}
+function renderDeliveries(){const el=document.getElementById('deliveryList');if(!el)return;if(!S.orders.length){el.innerHTML='<div class="notice">لا توجد طلبات حاليًا.</div>';return}el.innerHTML=S.orders.slice().reverse().map(o=>{const left=Math.max(0,Math.ceil(o.arrivesAt-worldMinute()));if(o.status==='في الطريق')return '<div class="row"><div><b>'+o.name+' × '+o.qty+'</b><div class="muted">🚚 في الطريق • متبقي تقريبًا '+left+' دقيقة داخل اللعبة</div></div><span class="tag">'+fmt(o.total)+'</span></div>';if(o.status==='وصلت')return '<div class="row"><div><b>'+o.name+' × '+o.qty+'</b><div class="good">وصلت البضاعة — اختر الآن</div></div><div class="actions"><button class="btn secondary" onclick="acceptDelivery('+o.id+',\'display\')">عرض للبيع</button><button class="btn secondary" onclick="acceptDelivery('+o.id+',\'store\')">تخزين</button></div></div>';return '<div class="row"><div><b>'+o.name+' × '+o.qty+'</b><div class="muted">'+o.status+'</div></div></div>'}).join('')}
 function rentStall(){
  if(S.stall){log('لديك فرشة مستأجرة بالفعل.');update();return}
  if(!spend(50)){log('لا تملك 50 ج لاستئجار الفرشة.');update();return}
@@ -128,9 +128,11 @@ function renderStall(){
  }
  document.getElementById('stallCapital').textContent=fmt(S.money);
  const box=document.getElementById('stallGoods');
- const owned=goods.filter(g=>(S.goods[g.name]||0)>0);
- box.innerHTML='<div class="section-title" style="margin-top:12px">📦 بضاعتي</div>'+
-   (owned.length?owned.map(g=>'<div class="row"><div><b>'+g.name+'</b><div class="muted">المخزون: '+(S.goods[g.name]||0)+'</div></div><span class="tag">سعر البيع المتوقع '+fmt(g.sell)+'</span></div>').join(''):'<div class="notice">لا توجد بضاعة. اشترِ أول بضاعة من السوق باستخدام الـ50 ج المتبقية.</div>');
+ const owned=goods.filter(g=>(S.goods[g.name]||0)>0),shown=goods.filter(g=>(S.displayed[g.name]||0)>0);
+ box.innerHTML='<div class="section-title" style="margin-top:12px">📦 مخزن بجانب الفرشة</div><div class="notice">السعة القصوى: <b>10 قطع إجمالًا</b> • المستخدم: <b>'+storageCount()+'/10</b></div>'+
+ (owned.length?owned.map(g=>'<div class="row"><div><b>'+g.name+'</b><div class="muted">المخزن: '+(S.goods[g.name]||0)+'</div></div></div>').join(''):'<div class="notice">المخزن فارغ.</div>')+
+ '<div class="section-title" style="margin-top:12px">🏪 معروض على الفرشة</div>'+
+ (shown.length?shown.map(g=>'<div class="row"><div><b>'+g.name+'</b><div class="muted">معروض للبيع: '+(S.displayed[g.name]||0)+'</div></div><span class="tag">'+fmt(g.sell)+' للقطعة</span></div>').join(''):'<div class="notice">لا توجد بضاعة معروضة للبيع.</div>');
  
 }
 function customerRate(){
@@ -159,7 +161,7 @@ function customerActivityLabel(){
 }
 function processCustomers(){
  if(!S.stall)return;
- const available=goods.filter(g=>(S.goods[g.name]||0)>0);
+ const available=goods.filter(g=>(S.displayed[g.name]||0)>0);
  if(!available.length)return;
  const rate=customerRate();
  const expected=rate*0.55;
@@ -167,11 +169,11 @@ function processCustomers(){
  const count=Math.random()<0.18*rate?2:1;
  let sold=0,total=0;
  for(let n=0;n<count;n++){
-   const choices=goods.filter(g=>(S.goods[g.name]||0)>0);
+   const choices=goods.filter(g=>(S.displayed[g.name]||0)>0);
    if(!choices.length)break;
    const g=choices[Math.floor(Math.random()*choices.length)];
    const p=Math.max(1,Math.round(g.sell*(0.82+Math.random()*0.36)));
-   S.goods[g.name]--;S.money+=p;sold++;total+=p;
+   S.displayed[g.name]--;S.money+=p;sold++;total+=p;
  }
  if(sold){
    S.stall.customers=(S.stall.customers||0)+sold;
@@ -185,7 +187,7 @@ function processCustomers(){
 
 function workDay(){log('لم يعد هناك زر لإنهاء اليوم؛ الساعة الداخلية تتولى مرور الأيام تلقائيًا.');update()}
 function endGame(){S.started=false;show('over')}
-function worldMinute(){return (S.day-1)*1440+S.gameMinute}function clockText(at){let m=Number.isFinite(at)?at%1440:S.gameMinute;let h=Math.floor(m/60),mi=Math.floor(m%60);return String(h).padStart(2,'0')+':'+String(mi).padStart(2,'0')}function processNewDay(){S.day++;S.lastProcessedDay=S.day;if(S.food>0)S.food--;if(S.job){let daily=Math.round(S.job.salary/30);S.money+=daily;gainExp(5);log('بدأ يوم جديد: حصلت من وظيفتك على '+fmt(daily)+'.')}else{gainExp(2);log('بدأ يوم جديد بلا دخل من وظيفة.')}if(S.stall&&S.stall.expiresAt<=worldMinute()){S.stall=null;log('انتهى إيجار فرشة الرصيف تلقائيًا بعد مرور 24 ساعة. إذا أردت البيع، استأجرها من جديد مقابل 50 ج.')}if(S.housing&&!S.housing.owned&&S.housing.expiresAt<=worldMinute()){if(S.housing.name==='سكن مؤقت'){S.housing=null;log('انتهى السكن المؤقت بعد 24 ساعة.')}else if(S.housing.name==='شقة إيجار'){if(S.money>=400){S.money-=400;S.housing.expiresAt=worldMinute()+30*1440;log('حان موعد الإيجار الشهري، ودُفع 400 ج لتجديد الشقة 30 يومًا.')}else{S.housing=null;log('لم تستطع دفع الإيجار الشهري، فانتهى عقد الشقة.')}}}if(S.money<=0&&!S.housing&&!S.food)endGame()}function advanceClock(fromLoad){let now=Date.now();if(!Number.isFinite(S.lastRealMs))S.lastRealMs=now;let elapsed=Math.max(0,now-S.lastRealMs);if(elapsed>0){S.gameMinute+=elapsed/600000*1440;S.lastRealMs=now;while(S.gameMinute>=1440){S.gameMinute-=1440;processNewDay()}if(S.stall&&S.stall.expiresAt<=worldMinute()){S.stall=null;log('انتهى إيجار فرشة الرصيف بعد 24 ساعة بالضبط.')}save()}if(!fromLoad){processCustomers();update()}}setInterval(()=>{if(!S.started)return;advanceClock(false)},1000);function renderAssets(){let inv=Object.entries(S.goods).filter(x=>x[1]>0).map(x=>x[0]+': '+x[1]).join(' • ')||'لا توجد سلع';document.getElementById('assetsList').innerHTML='<div class="row"><b>💰 المال</b><span class="price">'+fmt(S.money)+'</span></div><div class="row"><b>🏠 السكن</b><span>'+ (S.housing?S.housing.name:'لا يوجد')+'</span></div><div class="row"><b>🍞 الطعام</b><span>'+S.food+' وجبة</span></div><div class="row"><b>📦 المخزون</b><span>'+inv+'</span></div><div class="row"><b>🛒 التجارة</b><span>'+(S.stall?'فرشة رصيف مستأجرة اليوم':'لا توجد فرشة')+'</span></div><div class="row"><b>💼 العمل</b><span>'+(S.job?S.job.name:'لا يوجد')+'</span></div>'}
+function worldMinute(){return (S.day-1)*1440+S.gameMinute}function clockText(at){let m=Number.isFinite(at)?at%1440:S.gameMinute;let h=Math.floor(m/60),mi=Math.floor(m%60);return String(h).padStart(2,'0')+':'+String(mi).padStart(2,'0')}function processNewDay(){S.day++;S.lastProcessedDay=S.day;if(S.food>0)S.food--;if(S.job){let daily=Math.round(S.job.salary/30);S.money+=daily;gainExp(5);log('بدأ يوم جديد: حصلت من وظيفتك على '+fmt(daily)+'.')}else{gainExp(2);log('بدأ يوم جديد بلا دخل من وظيفة.')}if(S.stall&&S.stall.expiresAt<=worldMinute()){S.stall=null;log('انتهى إيجار فرشة الرصيف تلقائيًا بعد مرور 24 ساعة. إذا أردت البيع، استأجرها من جديد مقابل 50 ج.')}if(S.housing&&!S.housing.owned&&S.housing.expiresAt<=worldMinute()){if(S.housing.name==='سكن مؤقت'){S.housing=null;log('انتهى السكن المؤقت بعد 24 ساعة.')}else if(S.housing.name==='شقة إيجار'){if(S.money>=400){S.money-=400;S.housing.expiresAt=worldMinute()+30*1440;log('حان موعد الإيجار الشهري، ودُفع 400 ج لتجديد الشقة 30 يومًا.')}else{S.housing=null;log('لم تستطع دفع الإيجار الشهري، فانتهى عقد الشقة.')}}}if(S.money<=0&&!S.housing&&!S.food)endGame()}function advanceClock(fromLoad){let now=Date.now();if(!Number.isFinite(S.lastRealMs))S.lastRealMs=now;let elapsed=Math.max(0,now-S.lastRealMs);if(elapsed>0){S.gameMinute+=elapsed/600000*1440;S.lastRealMs=now;while(S.gameMinute>=1440){S.gameMinute-=1440;processNewDay()}if(S.stall&&S.stall.expiresAt<=worldMinute()){S.stall=null;log('انتهى إيجار فرشة الرصيف بعد 24 ساعة بالضبط.')}save()}if(!fromLoad){S.orders.filter(o=>o.status==='في الطريق'&&o.arrivesAt<=worldMinute()).forEach(o=>{o.status='وصلت';log('وصل طلبك: '+o.qty+' من '+o.name+'. اختر: عرض للبيع أو تخزين.');});processCustomers();update()}}setInterval(()=>{if(!S.started)return;advanceClock(false)},1000);function renderAssets(){let inv=Object.entries(S.goods).filter(x=>x[1]>0).map(x=>x[0]+': '+x[1]).join(' • ')||'لا توجد سلع';let shown=Object.entries(S.displayed).filter(x=>x[1]>0).map(x=>x[0]+': '+x[1]).join(' • ')||'لا توجد بضاعة معروضة';document.getElementById('assetsList').innerHTML='<div class="row"><b>💰 المال</b><span class="price">'+fmt(S.money)+'</span></div><div class="row"><b>🏠 السكن</b><span>'+ (S.housing?S.housing.name:'لا يوجد')+'</span></div><div class="row"><b>🍞 الطعام</b><span>'+S.food+' وجبة</span></div><div class="row"><b>📦 المخزن بجانب الفرشة</b><span>'+inv+' ('+storageCount()+'/10)</span></div><div class="row"><b>🏪 المعروض للبيع</b><span>'+shown+'</span></div><div class="row"><b>🛒 التجارة</b><span>'+(S.stall?'فرشة رصيف مستأجرة اليوم':'لا توجد فرشة')+'</span></div><div class="row"><b>💼 العمل</b><span>'+(S.job?S.job.name:'لا يوجد')+'</span></div>'}
 load();show('home');
 </script>
 </body></html>

@@ -38,7 +38,7 @@
 <input id="accountName" class="field" placeholder="اسم اللاعب (لإنشاء حساب)" maxlength="30">
 <input id="accountEmail" class="field" type="email" placeholder="البريد الإلكتروني" autocomplete="email">
 <input id="accountPassword" class="field" type="password" placeholder="كلمة المرور" autocomplete="current-password">
-<div class="actions"><button class="btn" onclick="signUpAccount()">إنشاء حساب</button><button class="btn secondary" onclick="signInAccount()">تسجيل الدخول</button></div>
+<div class="actions"><button class="btn" onclick="signUpAccount()">إنشاء حساب</button><button class="btn secondary" onclick="signInAccount()">تسجيل الدخول</button></div><button class="btn secondary" style="width:100%;margin-top:9px" onclick="signInWithGoogle()">🔵 المتابعة بحساب Google</button>
 </div>
 <div id="accountMessage" style="margin-top:10px"></div>
 </div>
@@ -183,6 +183,11 @@ async function signUpAccount(){
  if(error){showAccountMessage(error.message,true);return}
  if(data.session&&data.user){await finishLogin(data.user);showAccountMessage('تم إنشاء الحساب وربط تقدمك.',false)}
  else showAccountMessage('تم إنشاء الحساب. افحص بريدك لتأكيد الحساب ثم سجّل الدخول.',false);
+}
+async function signInWithGoogle(){
+ const redirectTo=window.location.origin+window.location.pathname;
+ const {error}=await supabaseClient.auth.signInWithOAuth({provider:'google',options:{redirectTo}});
+ if(error)showAccountMessage('تعذر بدء تسجيل الدخول بحساب Google: '+error.message,true);
 }
 async function signInAccount(){
  const email=(document.getElementById('accountEmail').value||'').trim();

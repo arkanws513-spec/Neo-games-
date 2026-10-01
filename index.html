@@ -100,7 +100,7 @@
 <script>
 const SUPABASE_URL='https://nhxybkkclzevsgrrgrjo.supabase.co';
 const SUPABASE_KEY='sb_publishable_nM7yOvy6BgF-GeEJVGhU4w_VwJsDLDn';
-const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 let cloudUser=null,cloudLoaded=false,cloudSaveBusy=false;
 
 const jobs=[
@@ -186,8 +186,9 @@ async function signUpAccount(){
 }
 async function signInWithGoogle(){
  const redirectTo=window.location.origin+window.location.pathname;
- const {error}=await supabaseClient.auth.signInWithOAuth({provider:'google',options:{redirectTo}});
- if(error)showAccountMessage('تعذر بدء تسجيل الدخول بحساب Google: '+error.message,true);
+ const {data,error}=await supabaseClient.auth.signInWithOAuth({provider:'google',options:{redirectTo}});
+ if(error){showAccountMessage('تعذر بدء تسجيل الدخول بحساب Google: '+error.message,true);return}
+ if(data?.url) window.location.href=data.url;
 }
 async function signInAccount(){
  const email=(document.getElementById('accountEmail').value||'').trim();
@@ -211,8 +212,42 @@ async function finishLogin(user){
  renderAccount();
 }
 async function signOutAccount(){await saveCloudNow(false);await supabaseClient.auth.signOut();cloudUser=null;cloudLoaded=false;show('home');renderAccount();update()}
-supabaseClient.auth.onAuthStateChange((event,session)=>{if(session?.user&&!cloudUser)finishLogin(session.user);if(event==='SIGNED_OUT'){cloudUser=null;cloudLoaded=false;renderAccount();}});
-async function bootAuth(){load();renderAccount();const {data}=await supabaseClient.auth.getSession();if(data.session?.user)await finishLogin(data.session.user);else show('home');renderAccount();update()}
+supabaseClient.auth.onAuthStateChange((event,session)=>{
+ if(event==='SIGNED_IN'&&session?.user&&!cloudUser)setTimeout(()=>finishLogin(session.user),0);
+ if(event==='SIGNED_OUT'){cloudUser=null;cloudLoaded=false;renderAccount();}
+});
+async function bootAuth(){
+ load();renderAccount();
+ const params=new URLSearchParams(window.location.search);
+ const hashParams=new URLSearchParams(window.location.hash.replace(/^#/,''));
+ const authError=params.get('error_description')||hashParams.get('error_description');
+ const authErrorCode=params.get('error_code')||hashParams.get('error_code');
+ if(authError){
+   show('account');
+   showAccountMessage('فشل تسجيل Google: '+decodeURIComponent(authError)+(authErrorCode?' ('+authErrorCode+')':''),true);
+   history.replaceState({},document.title,window.location.pathname);
+   return;
+ }
+ const code=params.get('code');
+ if(code){
+   const {error}=await supabaseClient.auth.exchangeCodeForSession(code);
+   history.replaceState({},document.title,window.location.pathname);
+   if(error){
+     show('account');
+     showAccountMessage('تعذر إكمال تسجيل Google: '+error.message,true);
+     return;
+   }
+ }
+ const {data,error}=await supabaseClient.auth.getSession();
+ if(error){
+   show('account');
+   showAccountMessage('تعذر قراءة جلسة الحساب: '+error.message,true);
+   return;
+ }
+ if(data.session?.user)await finishLogin(data.session.user);
+ else show('home');
+ renderAccount();update()
+}
 function gainExp(n){S.exp+=n;let need=S.level*25;if(S.exp>=need){S.exp-=need;S.level++;S.skill+=2;log('ارتفع مستواك إلى '+S.level+' وحصلت على +2 كفاءة.')}} 
 function spend(n){if(S.money<n){log('لا تملك ما يكفي من المال.');return false}S.money-=n;return true}
 function rentNight(){if(!spend(20))return;S.housing={name:'سكن مؤقت',expiresAt:worldMinute()+1440};log('استأجرت سكنًا مؤقتًا لمدة 24 ساعة.');show('game')}

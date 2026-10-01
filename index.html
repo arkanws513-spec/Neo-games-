@@ -5,8 +5,9 @@
 <title>الحياة الافتراضية</title>
 <style>
 :root{--bg:#090b10;--panel:#121722;--panel2:#181f2d;--line:#2a3446;--text:#f4f6fa;--muted:#9aa6b8;--gold:#e7b94f;--green:#54d49b;--red:#e86a73;--blue:#6da9ff}
-*{box-sizing:border-box}body{margin:0;padding-bottom:94px;background:radial-gradient(circle at 50% -20%,#29344a 0,#111722 34%,#090b10 72%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh;padding:14px}.app{max-width:760px;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.brand{font-weight:950;font-size:22px}.muted{color:var(--muted);font-size:12px}.money{border:1px solid #4a4129;background:#17150e;color:var(--gold);padding:9px 12px;border-radius:13px;font-weight:900}.screen{display:none}.screen.active{display:block}.hero{min-height:calc(100vh - 40px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}.person{width:170px;height:220px;position:relative;margin-bottom:22px}.head{position:absolute;width:66px;height:66px;border-radius:50%;background:#b9784f;left:52px;top:7px;box-shadow:inset -7px -4px 0 #9d603f}.hair{position:absolute;width:69px;height:28px;border-radius:38px 38px 15px 15px;background:#24201e;left:50px;top:2px}.body{position:absolute;width:108px;height:112px;background:#62646a;left:31px;top:69px;border-radius:28px 28px 14px 14px;box-shadow:inset -9px 0 #4f5157}.shirt{position:absolute;width:42px;height:100px;background:#777a80;left:64px;top:82px;border-radius:12px}.arm{position:absolute;width:27px;height:98px;background:#b9784f;border-radius:18px;top:78px}.arm.a{left:19px;transform:rotate(9deg)}.arm.b{right:18px;transform:rotate(-9deg)}.leg{position:absolute;width:35px;height:85px;background:#35383f;top:175px;border-radius:10px}.leg.a{left:49px}.leg.b{right:49px}.hero h1{font-size:34px;margin:0 0 6px}.hero p{color:var(--muted);max-width:420px;line-height:1.7;margin:0 0 22px}.btn{border:0;border-radius:15px;padding:14px 22px;font-size:16px;font-weight:900;cursor:pointer;background:linear-gradient(135deg,#e7b94f,#b88728);color:#17120a;box-shadow:0 10px 28px #0005}.btn.secondary{background:#171e2b;color:var(--text);border:1px solid var(--line);box-shadow:none}.btn:disabled{opacity:.4;cursor:not-allowed}.stack{display:grid;gap:10px;width:min(420px,100%)}.panel{background:linear-gradient(180deg,#151c28,#10151e);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:0 15px 45px #0005}.profile{display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:center}.mini-person{width:82px;height:100px;border-radius:20px;background:linear-gradient(145deg,#303744,#171b23);display:grid;place-items:center;font-size:46px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.stat{background:#0d121b;border:1px solid var(--line);padding:10px;border-radius:12px;text-align:center}.stat b{display:block;font-size:17px}.nav{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:12px}.tile{text-align:right;border:1px solid var(--line);background:#151c28;border-radius:16px;padding:14px;cursor:pointer;color:var(--text)}.tile strong{display:block;margin-bottom:4px}.tile small{color:var(--muted)}.section-title{font-size:18px;font-weight:950;margin:4px 0 10px}.row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid #202838}.row:last-child{border-bottom:0}.tag{padding:5px 8px;border-radius:8px;background:#202939;color:var(--muted);font-size:11px}.price{color:var(--gold);font-weight:900}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions .btn{flex:1;min-width:120px}.notice{padding:11px;border-radius:13px;background:#0d141f;border:1px solid var(--line);margin:10px 0;color:#dfe6f1;line-height:1.6}.danger{color:var(--red)}.good{color:var(--green)}.locked{opacity:.55}.job{padding:13px;border:1px solid var(--line);border-radius:14px;margin-bottom:9px;background:#121925}.job .topline{display:flex;justify-content:space-between;gap:8px}.back{background:none;border:0;color:var(--muted);font-weight:800;padding:8px 0;cursor:pointer}.log{font-size:12px;color:var(--muted);line-height:1.7;max-height:130px;overflow:auto}.hidden{display:none!important}.bottom-nav{position:fixed;z-index:1000;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:9px 8px calc(9px + env(safe-area-inset-bottom));background:rgba(13,17,25,.96);border-top:1px solid #303b4d;backdrop-filter:blur(14px);box-shadow:0 -8px 28px #0007}.bottom-nav button{border:1px solid transparent;background:transparent;color:var(--muted);border-radius:12px;min-width:0;padding:7px 2px;font:inherit;font-size:11px;font-weight:800;display:flex;flex-direction:column;align-items:center;gap:4px}.bottom-nav button span{font-size:19px}.bottom-nav button:active,.bottom-nav button.active{color:var(--gold);background:#252316;border-color:#554821}@media(min-width:700px){.bottom-nav{left:50%;right:auto;transform:translateX(-50%);width:min(760px,100%);border:1px solid #303b4d;border-bottom:0;border-radius:18px 18px 0 0}}@media(max-width:520px){body{padding:10px}.hero h1{font-size:29px}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.profile{grid-template-columns:70px 1fr}.mini-person{width:68px;height:86px;font-size:37px}}
+*{box-sizing:border-box}body{margin:0;padding-bottom:94px;background:radial-gradient(circle at 50% -20%,#29344a 0,#111722 34%,#090b10 72%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh;padding:14px}.app{max-width:760px;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.brand{font-weight:950;font-size:22px}.muted{color:var(--muted);font-size:12px}.money{border:1px solid #4a4129;background:#17150e;color:var(--gold);padding:9px 12px;border-radius:13px;font-weight:900}.screen{display:none}.screen.active{display:block}.hero{min-height:calc(100vh - 40px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}.person{width:170px;height:220px;position:relative;margin-bottom:22px}.head{position:absolute;width:66px;height:66px;border-radius:50%;background:#b9784f;left:52px;top:7px;box-shadow:inset -7px -4px 0 #9d603f}.hair{position:absolute;width:69px;height:28px;border-radius:38px 38px 15px 15px;background:#24201e;left:50px;top:2px}.body{position:absolute;width:108px;height:112px;background:#62646a;left:31px;top:69px;border-radius:28px 28px 14px 14px;box-shadow:inset -9px 0 #4f5157}.shirt{position:absolute;width:42px;height:100px;background:#777a80;left:64px;top:82px;border-radius:12px}.arm{position:absolute;width:27px;height:98px;background:#b9784f;border-radius:18px;top:78px}.arm.a{left:19px;transform:rotate(9deg)}.arm.b{right:18px;transform:rotate(-9deg)}.leg{position:absolute;width:35px;height:85px;background:#35383f;top:175px;border-radius:10px}.leg.a{left:49px}.leg.b{right:49px}.hero h1{font-size:34px;margin:0 0 6px}.hero p{color:var(--muted);max-width:420px;line-height:1.7;margin:0 0 22px}.btn{border:0;border-radius:15px;padding:14px 22px;font-size:16px;font-weight:900;cursor:pointer;background:linear-gradient(135deg,#e7b94f,#b88728);color:#17120a;box-shadow:0 10px 28px #0005}.btn.secondary{background:#171e2b;color:var(--text);border:1px solid var(--line);box-shadow:none}.btn:disabled{opacity:.4;cursor:not-allowed}.stack{display:grid;gap:10px;width:min(420px,100%)}.panel{background:linear-gradient(180deg,#151c28,#10151e);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:0 15px 45px #0005}.profile{display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:center}.mini-person{width:82px;height:100px;border-radius:20px;background:linear-gradient(145deg,#303744,#171b23);display:grid;place-items:center;font-size:46px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.stat{background:#0d121b;border:1px solid var(--line);padding:10px;border-radius:12px;text-align:center}.stat b{display:block;font-size:17px}.nav{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:12px}.tile{text-align:right;border:1px solid var(--line);background:#151c28;border-radius:16px;padding:14px;cursor:pointer;color:var(--text)}.tile strong{display:block;margin-bottom:4px}.tile small{color:var(--muted)}.section-title{font-size:18px;font-weight:950;margin:4px 0 10px}.row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid #202838}.row:last-child{border-bottom:0}.tag{padding:5px 8px;border-radius:8px;background:#202939;color:var(--muted);font-size:11px}.price{color:var(--gold);font-weight:900}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions .btn{flex:1;min-width:120px}.notice{padding:11px;border-radius:13px;background:#0d141f;border:1px solid var(--line);margin:10px 0;color:#dfe6f1;line-height:1.6}.danger{color:var(--red)}.good{color:var(--green)}.locked{opacity:.55}.job{padding:13px;border:1px solid var(--line);border-radius:14px;margin-bottom:9px;background:#121925}.job .topline{display:flex;justify-content:space-between;gap:8px}.back{background:none;border:0;color:var(--muted);font-weight:800;padding:8px 0;cursor:pointer}.log{font-size:12px;color:var(--muted);line-height:1.7;max-height:130px;overflow:auto}.hidden{display:none!important}.account-actions{display:grid;gap:9px}.field{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:#0d121b;color:var(--text);font:inherit;outline:none}.field:focus{border-color:#6da9ff}.account-badge{padding:8px 10px;border-radius:10px;background:#101a16;border:1px solid #294b3d;color:var(--green);font-size:12px;font-weight:800}.account-error{padding:10px;border-radius:11px;background:#211317;border:1px solid #63313a;color:#ff9ca4;line-height:1.6}.account-ok{padding:10px;border-radius:11px;background:#101d18;border:1px solid #2b5a47;color:#8de4bd;line-height:1.6}.bottom-nav{position:fixed;z-index:1000;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:9px 8px calc(9px + env(safe-area-inset-bottom));background:rgba(13,17,25,.96);border-top:1px solid #303b4d;backdrop-filter:blur(14px);box-shadow:0 -8px 28px #0007}.bottom-nav button{border:1px solid transparent;background:transparent;color:var(--muted);border-radius:12px;min-width:0;padding:7px 2px;font:inherit;font-size:11px;font-weight:800;display:flex;flex-direction:column;align-items:center;gap:4px}.bottom-nav button span{font-size:19px}.bottom-nav button:active,.bottom-nav button.active{color:var(--gold);background:#252316;border-color:#554821}@media(min-width:700px){.bottom-nav{left:50%;right:auto;transform:translateX(-50%);width:min(760px,100%);border:1px solid #303b4d;border-bottom:0;border-radius:18px 18px 0 0}}@media(max-width:520px){body{padding:10px}.hero h1{font-size:29px}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.profile{grid-template-columns:70px 1fr}.mini-person{width:68px;height:86px;font-size:37px}}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2"></script>
 </head>
 <body>
 <div class="app">
@@ -20,7 +21,8 @@
 <button class="btn" id="continueBtn" onclick="continueGame()">استمرار اللعب</button>
 <button class="btn secondary" onclick="newGame()">لعبة جديدة</button>
 <div class="panel" style="width:100%;margin-top:4px;text-align:right">
-<div class="section-title">📦 الحياة الافتراضية</div>
+<div class="section-title">🔐 حسابي</div><div id="homeAccount" class="notice">لم يتم تسجيل الدخول بعد.</div><button class="btn secondary" onclick="show('account')">إدارة الحساب</button>
+<div class="section-title" style="margin-top:14px">📦 الحياة الافتراضية</div>
 <div class="muted" style="margin-bottom:10px">ملخص ما تملكه حاليًا</div>
 <div id="homeAssets"></div>
 </div>
@@ -28,6 +30,26 @@
 </div>
 </section>
 
+<section id="account" class="screen">
+<div class="panel"><div class="section-title">🔐 حساب اللاعب</div>
+<div id="accountStatus" class="notice">الحساب يحفظ تقدمك على السحابة، ويمكنك متابعة نفس الحياة من جهاز آخر.</div>
+<div id="accountForm">
+<div class="account-actions">
+<input id="accountName" class="field" placeholder="اسم اللاعب (لإنشاء حساب)" maxlength="30">
+<input id="accountEmail" class="field" type="email" placeholder="البريد الإلكتروني" autocomplete="email">
+<input id="accountPassword" class="field" type="password" placeholder="كلمة المرور" autocomplete="current-password">
+<div class="actions"><button class="btn" onclick="signUpAccount()">إنشاء حساب</button><button class="btn secondary" onclick="signInAccount()">تسجيل الدخول</button></div>
+</div>
+<div id="accountMessage" style="margin-top:10px"></div>
+</div>
+<div id="accountLogged" class="hidden">
+<div class="account-badge">● الحساب متصل</div>
+<div class="notice" id="accountUser"></div>
+<div class="actions"><button class="btn secondary" onclick="saveCloudNow(true)">☁️ حفظ التقدم الآن</button><button class="btn secondary" onclick="signOutAccount()">تسجيل الخروج</button></div>
+</div>
+</div>
+<button class="back" onclick="show('home')">← الرئيسية</button>
+</section>
 <section id="life" class="screen">
 <div class="panel"><div class="profile"><div class="mini-person">🧑</div><div><div class="section-title">ملف حياتي</div><div class="muted">الشخصية في بداية الرحلة</div></div></div>
 <div class="stats"><div class="stat">💰<b id="m1">0 ج</b><span class="muted">المال</span></div><div class="stat">🏠<b id="h1">لا يوجد</b><span class="muted">السكن</span></div><div class="stat">💼<b id="j1">لا يوجد</b><span class="muted">العمل</span></div></div>
@@ -76,6 +98,11 @@
 </div>
 <nav class="bottom-nav hidden" id="bottomNav" aria-label="التنقل الرئيسي"><button onclick="navTo('game')" id="navMain"><span>🏠</span>الرئيسية</button><button onclick="goBack()"><span>↩️</span>رجوع</button><button onclick="navTo('food')" id="navFood"><span>🍞</span>الطعام</button><button onclick="navTo('housing')" id="navHousing"><span>🛏️</span>السكن</button><button onclick="navTo('stall')" id="navStall"><span>🛒</span>الكشك</button></nav>
 <script>
+const SUPABASE_URL='https://tkksjqduygnswlaebnji.supabase.co';
+const SUPABASE_KEY='sb_publishable_XrycbMf6EAz_Jhzw6wKCFw_nhxBT1lM';
+const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+let cloudUser=null,cloudLoaded=false,cloudSaveBusy=false;
+
 const jobs=[
 {name:'عامل مخزن',salary:2700,level:1,skill:0,exp:0,type:'عامل'},
 {name:'عامل مصنع',salary:3000,level:1,skill:1,exp:0,type:'عامل'},
@@ -98,7 +125,32 @@ const goods=[
 ];
 let S={started:false,money:100,day:1,level:1,exp:0,skill:0,housing:null,food:0,foodLight:0,foodGood:0,foodNutrition:0,job:null,goods:{},displayed:{},orders:[],stall:null,log:[],gameMinute:480,lastRealMs:Date.now(),lastProcessedDay:1,lastCustomerWorldMinute:-1,lastMealWorldDay:0,mealSlots:{}};
 function save(){localStorage.setItem('virtual-life-v1',JSON.stringify(S))}
-function load(){try{let x=JSON.parse(localStorage.getItem('virtual-life-v1'));if(x)S=x}catch(e){};if(!S.goods)S.goods={};if(!S.displayed)S.displayed={};if(!Array.isArray(S.orders))S.orders=[];goods.forEach(g=>{if(typeof S.goods[g.name]!=='number')S.goods[g.name]=0;if(typeof S.displayed[g.name]!=='number')S.displayed[g.name]=0;});if(S.stall===undefined)S.stall=null;if(!Number.isFinite(S.gameMinute))S.gameMinute=480;if(!Number.isFinite(S.foodLight))S.foodLight=Number(S.food)||0;if(!Number.isFinite(S.foodGood))S.foodGood=0;if(!Number.isFinite(S.foodNutrition))S.foodNutrition=S.foodLight+S.foodGood*1.5;if(!Number.isFinite(S.lastCustomerWorldMinute))S.lastCustomerWorldMinute=-1;if(!Number.isFinite(S.lastMealWorldDay))S.lastMealWorldDay=S.day||1;if(!S.mealSlots)S.mealSlots={};S.food=Math.floor((S.foodLight||0)+(S.foodGood||0));if(!Number.isFinite(S.lastRealMs))S.lastRealMs=Date.now();if(!Number.isFinite(S.lastProcessedDay))S.lastProcessedDay=S.day||1;advanceClock(true)}
+async function saveCloudNow(manual=false){
+ if(!cloudUser||!cloudLoaded||cloudSaveBusy)return;
+ cloudSaveBusy=true;
+ const name=(document.getElementById('accountName')?.value||cloudUser.user_metadata?.display_name||'لاعب').trim().slice(0,30)||'لاعب';
+ const {error}=await supabaseClient.from('virtual_life_saves').upsert({user_id:cloudUser.id,display_name:name,game_state:S,updated_at:new Date().toISOString()},{onConflict:'user_id'});
+ cloudSaveBusy=false;
+ if(manual)showAccountMessage(error?('تعذر حفظ التقدم: '+error.message):'تم حفظ تقدمك على السحابة بنجاح.',!!error);
+ if(!error)renderAccount();
+}
+setInterval(()=>{if(cloudUser&&cloudLoaded&&S.started)saveCloudNow(false)},15000);
+function showAccountMessage(msg,isError=false){const el=document.getElementById('accountMessage');if(el)el.innerHTML='<div class="'+(isError?'account-error':'account-ok')+'">'+msg+'</div>'}
+function renderAccount(){
+ const logged=document.getElementById('accountLogged'),form=document.getElementById('accountForm'),status=document.getElementById('accountStatus'),home=document.getElementById('homeAccount');
+ if(!logged||!form)return;
+ if(cloudUser){
+  form.classList.add('hidden');logged.classList.remove('hidden');
+  const email=cloudUser.email||'حساب اللاعب';document.getElementById('accountUser').textContent='مسجل الدخول باسم '+email+' • تقدمك محفوظ سحابيًا.';
+  status.textContent='الحساب متصل. أي تقدم جديد سيُحفظ تلقائيًا كل فترة قصيرة، مع بقاء الحفظ المحلي كنسخة احتياطية.';
+  if(home)home.innerHTML='<b>☁️ الحساب متصل</b><br><span class="muted">'+email+'</span>';
+ }else{
+  form.classList.remove('hidden');logged.classList.add('hidden');status.textContent='سجّل الدخول لحفظ تقدمك على السحابة واستخدامه من جهاز آخر.';
+  if(home)home.textContent='لم يتم تسجيل الدخول بعد.';
+ }
+}
+function load(){try{let x=JSON.parse(localStorage.getItem('virtual-life-v1'));if(x)S=x}catch(e){};normalizeState();advanceClock(true)}
+function normalizeState(){if(!S.goods)S.goods={};if(!S.displayed)S.displayed={};if(!Array.isArray(S.orders))S.orders=[];goods.forEach(g=>{if(typeof S.goods[g.name]!=='number')S.goods[g.name]=0;if(typeof S.displayed[g.name]!=='number')S.displayed[g.name]=0;});if(S.stall===undefined)S.stall=null;if(!Number.isFinite(S.gameMinute))S.gameMinute=480;if(!Number.isFinite(S.foodLight))S.foodLight=Number(S.food)||0;if(!Number.isFinite(S.foodGood))S.foodGood=0;if(!Number.isFinite(S.foodNutrition))S.foodNutrition=S.foodLight+S.foodGood*1.5;if(!Number.isFinite(S.lastCustomerWorldMinute))S.lastCustomerWorldMinute=-1;if(!Number.isFinite(S.lastMealWorldDay))S.lastMealWorldDay=S.day||1;if(!S.mealSlots)S.mealSlots={};S.food=Math.floor((S.foodLight||0)+(S.foodGood||0));if(!Number.isFinite(S.lastRealMs))S.lastRealMs=Date.now();if(!Number.isFinite(S.lastProcessedDay))S.lastProcessedDay=S.day||1}
 function fmt(n){return Math.round(n).toLocaleString('ar-EG')+' ج'}
 function log(x){S.log.unshift('اليوم '+S.day+' — '+x);S.log=S.log.slice(0,6)}
 let currentScreen='home', previousScreen='game';
@@ -119,9 +171,43 @@ function renderHomeAssets(){
 }
 function update(){document.getElementById('topMoney').textContent=fmt(S.money);document.getElementById('gm').textContent=fmt(S.money);document.getElementById('m1').textContent=fmt(S.money);document.getElementById('h1').textContent=S.housing?S.housing.name:'لا يوجد';document.getElementById('j1').textContent=S.job?S.job.name:'لا يوجد';document.getElementById('level').textContent=S.level;document.getElementById('day').textContent=S.day;document.getElementById('dayStat').textContent=S.day;document.getElementById('gameClock').textContent=clockText();document.getElementById('foodCount').textContent=(S.foodNutrition||0).toFixed(1);document.getElementById('foodLight').textContent=S.foodLight||0;document.getElementById('foodGood').textContent=S.foodGood||0;document.getElementById('housingSmall').textContent=S.housing?S.housing.name:'لا يوجد سكن';document.getElementById('foodSmall').textContent=(S.foodNutrition||0).toFixed(1)+' وحدة غذائية';document.getElementById('sleepSmall').textContent=S.housing?'النوم متاح • تحتاج 6 ساعات على الأقل':'استأجر سكنًا أولًا';document.getElementById('jobSmall').textContent=S.job?S.job.name:'ابحث عن عمل';document.getElementById('log').innerHTML=S.log.map(x=>'<div>'+x+'</div>').join('')||'لا توجد أحداث بعد.';document.getElementById('dayInfo').innerHTML=S.housing?'السكن: <b>'+S.housing.name+'</b> • الطعام: <b>'+S.food+'</b> • الوظيفة: <b>'+(S.job?S.job.name:'لا يوجد')+'</b>':'أنت بلا سكن حاليًا. أولويتك هي البقاء ثم بناء رأس المال.';renderJobs();renderAssets();renderHomeAssets();renderStall();renderOrderList();renderDeliveries();save()}
 function show(id){if(currentScreen!==id){previousScreen=currentScreen;currentScreen=id}document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');const bar=document.getElementById('bottomNav');bar.classList.toggle('hidden',!S.started||id==='home'||id==='over');['game','food','housing','stall'].forEach(k=>{const ids={game:'navMain',food:'navFood',housing:'navHousing',stall:'navStall'};const b=document.getElementById(ids[k]);if(b)b.classList.toggle('active',id===k)});update()}
-function startGame(){if(S.started){log('تم تحميل تقدمك المحفوظ.');show('game');return}S.started=true;S.money=100;S.day=1;S.level=1;S.exp=0;S.skill=0;S.housing=null;S.food=0;S.job=null;S.goods={};S.displayed={};S.orders=[];S.stall=null;S.log=[];S.gameMinute=480;S.lastProcessedDay=1;S.lastRealMs=Date.now();S.foodLight=0;S.foodGood=0;S.foodNutrition=0;S.lastCustomerWorldMinute=-1;S.lastMealWorldDay=1;S.mealSlots={};S.hunger=0;log('بدأت حياتك الساعة 08:00 ومعك 100 جنيه فقط.');show('game')}
-function continueGame(){if(!S.started){S.started=true;S.lastRealMs=Date.now();save()}show('game')}
-function newGame(){S.started=false;startGame()}
+function startGame(){if(!cloudUser){show('account');return}if(S.started){log('تم تحميل تقدمك المحفوظ.');show('game');return}S.started=true;S.money=100;S.day=1;S.level=1;S.exp=0;S.skill=0;S.housing=null;S.food=0;S.job=null;S.goods={};S.displayed={};S.orders=[];S.stall=null;S.log=[];S.gameMinute=480;S.lastProcessedDay=1;S.lastRealMs=Date.now();S.foodLight=0;S.foodGood=0;S.foodNutrition=0;S.lastCustomerWorldMinute=-1;S.lastMealWorldDay=1;S.mealSlots={};S.hunger=0;log('بدأت حياتك الساعة 08:00 ومعك 100 جنيه فقط.');show('game')}
+function continueGame(){if(!cloudUser){show('account');showAccountMessage('سجّل الدخول أولًا حتى يكون تقدمك مرتبطًا بحسابك.',true);return}if(!S.started){S.started=true;S.lastRealMs=Date.now();saveCloudNow(false)}show('game')}
+function newGame(){if(!cloudUser){show('account');showAccountMessage('أنشئ حسابًا أو سجّل الدخول أولًا لبدء حياة مرتبطة بحسابك.',true);return}S.started=false;startGame();saveCloudNow(false)}
+async function signUpAccount(){
+ const name=(document.getElementById('accountName').value||'لاعب').trim();
+ const email=(document.getElementById('accountEmail').value||'').trim();
+ const password=document.getElementById('accountPassword').value;
+ if(!email||password.length<6){showAccountMessage('اكتب بريدًا صحيحًا وكلمة مرور من 6 أحرف أو أكثر.',true);return}
+ const {data,error}=await supabaseClient.auth.signUp({email,password,options:{data:{display_name:name}}});
+ if(error){showAccountMessage(error.message,true);return}
+ if(data.session&&data.user){await finishLogin(data.user);showAccountMessage('تم إنشاء الحساب وربط تقدمك.',false)}
+ else showAccountMessage('تم إنشاء الحساب. افحص بريدك لتأكيد الحساب ثم سجّل الدخول.',false);
+}
+async function signInAccount(){
+ const email=(document.getElementById('accountEmail').value||'').trim();
+ const password=document.getElementById('accountPassword').value;
+ if(!email||!password){showAccountMessage('اكتب البريد الإلكتروني وكلمة المرور.',true);return}
+ const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
+ if(error){showAccountMessage(error.message,true);return}
+ await finishLogin(data.user);
+}
+async function finishLogin(user){
+ cloudUser=user;cloudLoaded=false;renderAccount();
+ const {data,error}=await supabaseClient.from('virtual_life_saves').select('user_id,display_name,game_state').eq('user_id',user.id).maybeSingle();
+ if(error){showAccountMessage('تعذر تحميل التقدم: '+error.message,true);return}
+ if(data&&data.game_state&&Object.keys(data.game_state).length){
+   S=data.game_state;normalizeState();save();cloudLoaded=true;log('تم تحميل تقدمك من الحساب.');update();
+ }else{
+   cloudLoaded=true;
+   if(S.started)await saveCloudNow(false);
+   else show('home');
+ }
+ renderAccount();
+}
+async function signOutAccount(){await saveCloudNow(false);await supabaseClient.auth.signOut();cloudUser=null;cloudLoaded=false;show('home');renderAccount();update()}
+supabaseClient.auth.onAuthStateChange((event,session)=>{if(session?.user&&!cloudUser)finishLogin(session.user);if(event==='SIGNED_OUT'){cloudUser=null;cloudLoaded=false;renderAccount();}});
+async function bootAuth(){load();renderAccount();const {data}=await supabaseClient.auth.getSession();if(data.session?.user)await finishLogin(data.session.user);else show('home');renderAccount();update()}
 function gainExp(n){S.exp+=n;let need=S.level*25;if(S.exp>=need){S.exp-=need;S.level++;S.skill+=2;log('ارتفع مستواك إلى '+S.level+' وحصلت على +2 كفاءة.')}} 
 function spend(n){if(S.money<n){log('لا تملك ما يكفي من المال.');return false}S.money-=n;return true}
 function rentNight(){if(!spend(20))return;S.housing={name:'سكن مؤقت',expiresAt:worldMinute()+1440};log('استأجرت سكنًا مؤقتًا لمدة 24 ساعة.');show('game')}
@@ -253,6 +339,6 @@ function endGame(){S.started=false;show('over')}
 function worldMinute(){return (S.day-1)*1440+S.gameMinute}function clockText(at){let m=Number.isFinite(at)?at%1440:S.gameMinute;let h=Math.floor(m/60),mi=Math.floor(m%60);return String(h).padStart(2,'0')+':'+String(mi).padStart(2,'0')}function consumeMeal(){if((S.foodNutrition||0)>=1){if((S.foodLight||0)>0){S.foodLight--;S.foodNutrition-=1;log('🍴 تناولت وجبة بسيطة تلقائيًا.')}else if((S.foodGood||0)>0){S.foodGood--;S.foodNutrition-=1.5;log('🍲 تناولت وجبة جيدة تلقائيًا.')}S.foodNutrition=Math.max(0,Number(S.foodNutrition.toFixed(2)));S.food=Math.floor((S.foodLight||0)+(S.foodGood||0));return true}log('⚠️ لم تجد طعامًا كافيًا. بدأ جسمك يشعر بالجوع.');return false}
 function processMeals(){const h=Math.floor(S.gameMinute/60);const slot=h>=6&&h<12?'morning':h>=12&&h<18?'afternoon':'evening';const key=S.day+'-'+slot;if(S.mealSlots[key])return;if(consumeMeal())S.mealSlots[key]=true;else{S.mealSlots[key]=true;S.hunger=(S.hunger||0)+1}}
 function processNewDay(){S.day++;S.lastProcessedDay=S.day;S.mealSlots={};S.hunger=0;if(S.job){let daily=Math.round(S.job.salary/30);S.money+=daily;gainExp(5);log('بدأ يوم جديد: حصلت من وظيفتك على '+fmt(daily)+'.')}else{gainExp(2);log('بدأ يوم جديد بلا دخل من وظيفة.')}if(S.stall&&S.stall.expiresAt<=worldMinute()){S.stall=null;log('انتهى إيجار النشاط التجاري تلقائيًا بعد مرور 24 ساعة. استأجر المستوى الذي تريده من جديد.')}if(S.housing&&!S.housing.owned&&S.housing.expiresAt<=worldMinute()){if(S.housing.name==='سكن مؤقت'){S.housing=null;log('انتهى السكن المؤقت بعد 24 ساعة.')}else if(S.housing.name==='شقة إيجار'){if(S.money>=400){S.money-=400;S.housing.expiresAt=worldMinute()+30*1440;log('حان موعد الإيجار الشهري، ودُفع 400 ج لتجديد الشقة 30 يومًا.')}else{S.housing=null;log('لم تستطع دفع الإيجار الشهري، فانتهى عقد الشقة.')}}}if(S.money<=0&&!S.housing&&!S.food)endGame()}function advanceClock(fromLoad){if(!S.started)return;S.gameMinute+=1440/600;while(S.gameMinute>=1440){S.gameMinute-=1440;processNewDay()}processMeals();if(S.stall&&S.stall.expiresAt<=worldMinute()){S.stall=null;log('انتهى إيجار النشاط التجاري بعد 24 ساعة بالضبط.')}if(!fromLoad){S.orders.filter(o=>o.status==='في الطريق'&&o.arrivesAt<=worldMinute()).forEach(o=>{o.status='وصلت';log('وصل طلبك: '+o.qty+' من '+o.name+'. اختر: عرض للبيع أو تخزين.');});processCustomers();update()}save()}setInterval(()=>{if(!S.started)return;advanceClock(false)},1000);function renderAssets(){let inv=Object.entries(S.goods).filter(x=>x[1]>0).map(x=>x[0]+': '+x[1]).join(' • ')||'لا توجد سلع';let shown=Object.entries(S.displayed).filter(x=>x[1]>0).map(x=>x[0]+': '+x[1]).join(' • ')||'لا توجد بضاعة معروضة';document.getElementById('assetsList').innerHTML='<div class="row"><b>💰 المال</b><span class="price">'+fmt(S.money)+'</span></div><div class="row"><b>🏠 السكن</b><span>'+ (S.housing?S.housing.name:'لا يوجد')+'</span></div><div class="row"><b>🍞 الطعام</b><span>بسيط: '+(S.foodLight||0)+' • جيد: '+(S.foodGood||0)+' • '+(S.foodNutrition||0).toFixed(1)+' وحدة</span></div><div class="row"><b>📦 المخزن بجانب الفرشة</b><span>'+inv+' ('+storageCount()+'/10)</span></div><div class="row"><b>🏪 المعروض للبيع</b><span>'+shown+'</span></div><div class="row"><b>🛒 التجارة</b><span>'+(S.stall?'فرشة رصيف مستأجرة اليوم':'لا توجد فرشة')+'</span></div><div class="row"><b>💼 العمل</b><span>'+(S.job?S.job.name:'لا يوجد')+'</span></div>'}
-load();show('home');
+bootAuth();
 </script>
 </body></html>

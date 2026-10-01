@@ -198,6 +198,9 @@ async function signInAccount(){
  if(error){showAccountMessage(error.message,true);return}
  await finishLogin(data.user);
 }
+function freshGameState(){
+ return {started:false,money:100,day:1,level:1,exp:0,skill:0,housing:null,food:0,foodLight:0,foodGood:0,foodNutrition:0,job:null,goods:{},displayed:{},orders:[],stall:null,log:[],gameMinute:480,lastRealMs:Date.now(),lastProcessedDay:1,lastCustomerWorldMinute:-1,lastMealWorldDay:1,mealSlots:{},hunger:0};
+}
 async function finishLogin(user){
  cloudUser=user;cloudLoaded=false;renderAccount();
  const {data,error}=await supabaseClient.from('virtual_life_saves').select('user_id,display_name,game_state').eq('user_id',user.id).maybeSingle();
@@ -205,9 +208,9 @@ async function finishLogin(user){
  if(data&&data.game_state&&Object.keys(data.game_state).length){
    S=data.game_state;normalizeState();save();cloudLoaded=true;log('تم تحميل تقدمك من الحساب.');update();
  }else{
-   cloudLoaded=true;
-   if(S.started)await saveCloudNow(false);
-   else show('home');
+   // الحساب جديد: لا ننسخ الحفظ المحلي من حساب آخر.
+   S=freshGameState();save();cloudLoaded=true;show('home');update();
+   await saveCloudNow(false);
  }
  renderAccount();
 }

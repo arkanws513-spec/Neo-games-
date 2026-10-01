@@ -179,7 +179,7 @@ async function signUpAccount(){
  const email=(document.getElementById('accountEmail').value||'').trim();
  const password=document.getElementById('accountPassword').value;
  if(!email||password.length<6){showAccountMessage('اكتب بريدًا صحيحًا وكلمة مرور من 6 أحرف أو أكثر.',true);return}
- const {data,error}=await supabaseClient.auth.signUp({email,password,options:{data:{display_name:name}}});
+ const redirectTo=window.location.origin+window.location.pathname; const {data,error}=await supabaseClient.auth.signUp({email,password,options:{data:{display_name:name},emailRedirectTo:redirectTo}});
  if(error){showAccountMessage(error.message,true);return}
  if(data.session&&data.user){await finishLogin(data.user);showAccountMessage('تم إنشاء الحساب وربط تقدمك.',false)}
  else showAccountMessage('تم إنشاء الحساب. افحص بريدك لتأكيد الحساب ثم سجّل الدخول.',false);

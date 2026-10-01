@@ -16,7 +16,15 @@
 <div class="hero">
 <div class="person"><div class="hair"></div><div class="head"></div><div class="body"></div><div class="shirt"></div><div class="arm a"></div><div class="arm b"></div><div class="leg a"></div><div class="leg b"></div></div>
 <h1>حياة من الصفر</h1><p>أمامك 100 جنيه فقط. لا سكن، لا وظيفة، ولا ممتلكات. قراراتك اليومية هي التي ستحدد إلى أين ستصل.</p>
-<div class="stack"><button class="btn secondary" onclick="show('life')">الحياة الافتراضية</button><button class="btn" onclick="startGame()">ابدأ اللعبة</button></div>
+<div class="stack">
+<button class="btn" id="continueBtn" onclick="continueGame()">استمرار اللعب</button>
+<button class="btn secondary" onclick="newGame()">لعبة جديدة</button>
+<div class="panel" style="width:100%;margin-top:4px;text-align:right">
+<div class="section-title">📦 الحياة الافتراضية</div>
+<div class="muted" style="margin-bottom:10px">ملخص ما تملكه حاليًا</div>
+<div id="homeAssets"></div>
+</div>
+</div>
 </div>
 </section>
 
@@ -96,10 +104,24 @@ function log(x){S.log.unshift('اليوم '+S.day+' — '+x);S.log=S.log.slice(0
 let currentScreen='home', previousScreen='game';
 function navTo(id){if(S.started)show(id)}
 function goBack(){if(!S.started)return;show(previousScreen&&previousScreen!==currentScreen?previousScreen:'game')}
-function update(){document.getElementById('topMoney').textContent=fmt(S.money);document.getElementById('gm').textContent=fmt(S.money);document.getElementById('m1').textContent=fmt(S.money);document.getElementById('h1').textContent=S.housing?S.housing.name:'لا يوجد';document.getElementById('j1').textContent=S.job?S.job.name:'لا يوجد';document.getElementById('level').textContent=S.level;document.getElementById('day').textContent=S.day;document.getElementById('dayStat').textContent=S.day;document.getElementById('gameClock').textContent=clockText();document.getElementById('foodCount').textContent=(S.foodNutrition||0).toFixed(1);document.getElementById('foodLight').textContent=S.foodLight||0;document.getElementById('foodGood').textContent=S.foodGood||0;document.getElementById('housingSmall').textContent=S.housing?S.housing.name:'لا يوجد سكن';document.getElementById('foodSmall').textContent=(S.foodNutrition||0).toFixed(1)+' وحدة غذائية';document.getElementById('sleepSmall').textContent=S.housing?'النوم متاح • تحتاج 6 ساعات على الأقل':'استأجر سكنًا أولًا';document.getElementById('jobSmall').textContent=S.job?S.job.name:'ابحث عن عمل';document.getElementById('log').innerHTML=S.log.map(x=>'<div>'+x+'</div>').join('')||'لا توجد أحداث بعد.';document.getElementById('dayInfo').innerHTML=S.housing?'السكن: <b>'+S.housing.name+'</b> • الطعام: <b>'+S.food+'</b> • الوظيفة: <b>'+(S.job?S.job.name:'لا يوجد')+'</b>':'أنت بلا سكن حاليًا. أولويتك هي البقاء ثم بناء رأس المال.';renderJobs();renderAssets();renderStall();renderOrderList();renderDeliveries();save()}
+function renderHomeAssets(){
+ const el=document.getElementById('homeAssets'); if(!el)return;
+ const goodsOwned=Object.entries(S.goods||{}).filter(x=>Number(x[1])>0).map(x=>x[0]+' × '+x[1]).join(' • ')||'لا توجد بضاعة';
+ const shown=Object.entries(S.displayed||{}).filter(x=>Number(x[1])>0).map(x=>x[0]+' × '+x[1]).join(' • ')||'لا يوجد معروض';
+ el.innerHTML='<div class="row"><b>💰 المال</b><span class="price">'+fmt(S.money)+'</span></div>'+
+ '<div class="row"><b>🏠 السكن</b><span>'+(S.housing?S.housing.name:'لا يوجد')+'</span></div>'+
+ '<div class="row"><b>💼 العمل</b><span>'+(S.job?S.job.name:'لا يوجد')+'</span></div>'+
+ '<div class="row"><b>🛒 التجارة</b><span>'+(S.stall?S.stall.name:'لا يوجد نشاط تجاري')+'</span></div>'+
+ '<div class="row"><b>📦 البضاعة</b><span>'+goodsOwned+'</span></div>'+
+ '<div class="row"><b>🏪 المعروض</b><span>'+shown+'</span></div>'+
+ '<div class="row"><b>⭐ المستوى</b><span>'+S.level+' • الخبرة '+S.exp+'</span></div>';
+ document.getElementById('continueBtn').disabled=!S.started;
+}
+function update(){document.getElementById('topMoney').textContent=fmt(S.money);document.getElementById('gm').textContent=fmt(S.money);document.getElementById('m1').textContent=fmt(S.money);document.getElementById('h1').textContent=S.housing?S.housing.name:'لا يوجد';document.getElementById('j1').textContent=S.job?S.job.name:'لا يوجد';document.getElementById('level').textContent=S.level;document.getElementById('day').textContent=S.day;document.getElementById('dayStat').textContent=S.day;document.getElementById('gameClock').textContent=clockText();document.getElementById('foodCount').textContent=(S.foodNutrition||0).toFixed(1);document.getElementById('foodLight').textContent=S.foodLight||0;document.getElementById('foodGood').textContent=S.foodGood||0;document.getElementById('housingSmall').textContent=S.housing?S.housing.name:'لا يوجد سكن';document.getElementById('foodSmall').textContent=(S.foodNutrition||0).toFixed(1)+' وحدة غذائية';document.getElementById('sleepSmall').textContent=S.housing?'النوم متاح • تحتاج 6 ساعات على الأقل':'استأجر سكنًا أولًا';document.getElementById('jobSmall').textContent=S.job?S.job.name:'ابحث عن عمل';document.getElementById('log').innerHTML=S.log.map(x=>'<div>'+x+'</div>').join('')||'لا توجد أحداث بعد.';document.getElementById('dayInfo').innerHTML=S.housing?'السكن: <b>'+S.housing.name+'</b> • الطعام: <b>'+S.food+'</b> • الوظيفة: <b>'+(S.job?S.job.name:'لا يوجد')+'</b>':'أنت بلا سكن حاليًا. أولويتك هي البقاء ثم بناء رأس المال.';renderJobs();renderAssets();renderHomeAssets();renderStall();renderOrderList();renderDeliveries();save()}
 function show(id){if(currentScreen!==id){previousScreen=currentScreen;currentScreen=id}document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');const bar=document.getElementById('bottomNav');bar.classList.toggle('hidden',!S.started||id==='home'||id==='over');['game','food','housing','stall'].forEach(k=>{const ids={game:'navMain',food:'navFood',housing:'navHousing',stall:'navStall'};const b=document.getElementById(ids[k]);if(b)b.classList.toggle('active',id===k)});update()}
 function startGame(){if(S.started){log('تم تحميل تقدمك المحفوظ.');show('game');return}S.started=true;S.money=100;S.day=1;S.level=1;S.exp=0;S.skill=0;S.housing=null;S.food=0;S.job=null;S.goods={};S.displayed={};S.orders=[];S.stall=null;S.log=[];S.gameMinute=480;S.lastProcessedDay=1;S.lastRealMs=Date.now();S.foodLight=0;S.foodGood=0;S.foodNutrition=0;S.lastCustomerWorldMinute=-1;S.lastMealWorldDay=1;S.mealSlots={};S.hunger=0;log('بدأت حياتك الساعة 08:00 ومعك 100 جنيه فقط.');show('game')}
-function newGame(){startGame()}
+function continueGame(){if(!S.started){S.started=true;S.lastRealMs=Date.now();save()}show('game')}
+function newGame(){S.started=false;startGame()}
 function gainExp(n){S.exp+=n;let need=S.level*25;if(S.exp>=need){S.exp-=need;S.level++;S.skill+=2;log('ارتفع مستواك إلى '+S.level+' وحصلت على +2 كفاءة.')}} 
 function spend(n){if(S.money<n){log('لا تملك ما يكفي من المال.');return false}S.money-=n;return true}
 function rentNight(){if(!spend(20))return;S.housing={name:'سكن مؤقت',expiresAt:worldMinute()+1440};log('استأجرت سكنًا مؤقتًا لمدة 24 ساعة.');show('game')}

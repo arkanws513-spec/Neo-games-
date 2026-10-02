@@ -95,6 +95,30 @@ body{
  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
 }
 
+
+/* Major gameplay dashboard redesign */
+.game-shell{display:grid;gap:12px}
+.game-header{display:flex;align-items:center;justify-content:space-between;padding:4px 2px}
+.eyebrow{font-size:11px;color:var(--gold);font-weight:900;text-transform:uppercase;letter-spacing:.7px}
+.game-title{font-size:28px;font-weight:950;letter-spacing:-.8px;margin:2px 0}
+.live-pill{display:flex;align-items:center;gap:6px;border:1px solid #355343;background:#13231a;color:#8de0ad;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:900}
+.live-pill span{width:7px;height:7px;border-radius:50%;background:#75d6a0;box-shadow:0 0 10px #75d6a0}
+.time-card{position:relative;overflow:hidden;border:1px solid #675632;border-radius:22px;padding:17px;background:linear-gradient(135deg,#292517,#171a15 55%,#142119);box-shadow:0 16px 35px #0004}
+.time-main{font-size:31px;font-weight:950}.time-day{position:absolute;left:16px;top:18px;color:#e2d4ae;font-size:13px}
+.time-line{height:6px;background:#0c120f;border-radius:99px;margin:15px 0 9px;overflow:hidden}.time-progress{height:100%;width:33%;background:linear-gradient(90deg,#d7ad55,#75d6a0);border-radius:99px}
+.status-grid{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:9px}
+.status-card{min-height:88px;padding:13px;border:1px solid #30483a;border-radius:18px;background:linear-gradient(145deg,#1c2a22,#111914);display:flex;flex-direction:column;gap:3px}
+.status-card span{font-size:18px}.status-card small{color:var(--muted);font-size:11px}.status-card b{font-size:19px;color:#f1d083}.money-card{border-color:#66562f;background:linear-gradient(145deg,#282316,#171a15)}
+.day-notice{margin:0}
+.section-heading{display:flex;align-items:center;justify-content:space-between;margin:4px 2px -2px;font-weight:950}.section-heading small{font-size:11px;color:var(--muted);font-weight:600}
+.action-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.action-card{min-height:105px;text-align:right;border:1px solid #30483a;border-radius:19px;background:linear-gradient(145deg,#1d2b23,#131c17);color:var(--text);padding:14px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:4px;box-shadow:0 8px 22px #0002}
+.action-card:active{transform:scale(.985)}.action-card.featured{border-color:#80683a;background:linear-gradient(145deg,#30291b,#182119)}
+.action-icon{font-size:25px}.action-card strong{font-size:15px}.action-card small{font-size:11px;color:var(--muted);line-height:1.4}
+.quick-panel{border:1px solid #30483a;border-radius:20px;padding:14px;background:#111a15}
+.quick-row{display:flex;justify-content:space-between;align-items:center;padding:11px 2px;border-bottom:1px solid #26372d;font-size:13px}.quick-row:last-child{border-bottom:0}.quick-row b{color:#e4d18f;font-size:12px}
+.event-panel{margin-top:12px}
+@media(max-width:520px){.game-title{font-size:25px}.status-card{min-height:82px;padding:11px}.status-card b{font-size:17px}.action-card{min-height:98px;padding:12px}.time-main{font-size:28px}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2"></script>
 </head>
@@ -147,17 +171,51 @@ body{
 </section>
 
 <section id="game" class="screen">
-<div class="panel"><div class="section-title">الحياة الآن</div><div class="notice" id="clockBox">🕐 <b id="gameClock">08:00</b> • اليوم <b id="day">1</b><br><span class="muted">24 ساعة داخل اللعبة تمر خلال 10 دقائق حقيقية</span></div><div class="notice" id="dayInfo"></div><div class="stats"><div class="stat">💰<b id="gm">100 ج</b><span class="muted">الرصيد</span></div><div class="stat">⭐<b id="level">1</b><span class="muted">المستوى</span></div><div class="stat">📅<b id="dayStat">1</b><span class="muted">اليوم</span></div></div>
-<div class="nav">
-<button class="tile" onclick="sleepSixHours()"><strong>😴 النوم 6 ساعات</strong><small id="sleepSmall">تحتاج إلى سكن لإغلاق اليوم</small></button>
-<button class="tile" onclick="show('housing')"><strong>🏠 السكن</strong><small id="housingSmall">لا يوجد سكن</small></button>
-<button class="tile" onclick="show('food')"><strong>🍞 الطعام</strong><small id="foodSmall">لا يوجد طعام</small></button>
-<button class="tile" onclick="show('jobs')"><strong>💼 الوظائف</strong><small id="jobSmall">ابحث عن عمل</small></button>
-<button class="tile" onclick="show('stall')"><strong>🛒 فرشة الرصيف</strong><small id="stallSmall">استأجر وابدأ البيع</small></button>
-<button class="tile" onclick="workDay()"><strong>⏱️ قضاء اليوم</strong><small>عمل / تجارة / بحث</small></button>
-<button class="tile" onclick="show('life')"><strong>👤 حياتي</strong><small>الملف الشخصي</small></button>
-</div></div>
-<div class="panel" style="margin-top:10px"><div class="section-title">سجل الأحداث</div><div id="log" class="log"></div></div>
+<div class="game-shell">
+  <div class="game-header">
+    <div>
+      <div class="eyebrow">يومك الحالي</div>
+      <div class="game-title">حياتك الآن</div>
+      <div class="muted">كل قرار يغيّر وضعك الاقتصادي</div>
+    </div>
+    <div class="live-pill"><span></span> مباشر</div>
+  </div>
+
+  <div class="time-card">
+    <div class="time-main">🕐 <b id="gameClock">08:00</b></div>
+    <div class="time-day">اليوم <b id="day">1</b></div>
+    <div class="time-line"><div class="time-progress" id="timeProgress"></div></div>
+    <div class="muted">24 ساعة داخل اللعبة = 10 دقائق حقيقية</div>
+  </div>
+
+  <div class="status-grid">
+    <div class="status-card money-card"><span>💰</span><small>الرصيد</small><b id="gm">100 ج</b></div>
+    <div class="status-card"><span>⭐</span><small>المستوى</small><b id="level">1</b></div>
+    <div class="status-card"><span>📅</span><small>اليوم</small><b id="dayStat">1</b></div>
+  </div>
+
+  <div class="notice day-notice" id="dayInfo"></div>
+
+  <div class="section-heading"><span>⚡ ماذا ستفعل؟</span><small>إدارة يومك</small></div>
+  <div class="action-grid">
+    <button class="action-card featured" onclick="show('jobs')"><span class="action-icon">💼</span><strong>العمل</strong><small id="jobSmall">ابحث عن وظيفة</small></button>
+    <button class="action-card" onclick="show('stall')"><span class="action-icon">🛒</span><strong>التجارة</strong><small id="stallSmall">ابدأ مشروعك</small></button>
+    <button class="action-card" onclick="show('housing')"><span class="action-icon">🏠</span><strong>السكن</strong><small id="housingSmall">لا يوجد سكن</small></button>
+    <button class="action-card" onclick="show('food')"><span class="action-icon">🍞</span><strong>الطعام</strong><small id="foodSmall">المخزون الغذائي</small></button>
+    <button class="action-card" onclick="sleepSixHours()"><span class="action-icon">😴</span><strong>النوم</strong><small id="sleepSmall">تحتاج إلى سكن</small></button>
+    <button class="action-card" onclick="show('life')"><span class="action-icon">👤</span><strong>ملف حياتي</strong><small>الأصول والتقدم</small></button>
+  </div>
+
+  <div class="quick-panel">
+    <div class="section-heading"><span>📊 ملخص الحالة</span></div>
+    <div class="quick-row"><span>🏠 السكن</span><b id="quickHousing">لا يوجد</b></div>
+    <div class="quick-row"><span>💼 العمل</span><b id="quickJob">لا يوجد</b></div>
+    <div class="quick-row"><span>🍞 الغذاء</span><b id="quickFood">0 وحدة</b></div>
+    <div class="quick-row"><span>🏪 النشاط التجاري</span><b id="quickTrade">غير نشط</b></div>
+  </div>
+</div>
+
+<div class="panel event-panel"><div class="section-title">📜 آخر الأحداث</div><div id="log" class="log"></div></div>
 </section>
 
 <section id="housing" class="screen"><div class="panel"><div class="section-title">اختر سكنك</div><div class="notice">لن تستطيع الاستمرار طويلًا بلا سكن. اختر ما يناسب رأس مالك الحالي.</div>

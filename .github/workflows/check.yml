@@ -1,0 +1,29 @@
+name: MCP bridge checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: node --check server.mjs
+      - name: Smoke test root endpoint
+        run: |
+          PORT=3217 npm start > /tmp/neo-games.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent http://127.0.0.1:3217/; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/neo-games.log
+          exit 1

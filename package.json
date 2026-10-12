@@ -1,8 +1,13 @@
 {
-  "name":"neo-game-studio-bridge",
-  "version":"0.1.0",
-  "private":true,
-  "type":"module",
-  "scripts":{"start":"node server.mjs"},
-  "dependencies":{"@modelcontextprotocol/sdk":"latest","zod":"latest"}
+  "name": "neo-game-studio-bridge",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "zod": "4.6.5"
+  }
 }
